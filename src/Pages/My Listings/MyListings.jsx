@@ -1,6 +1,6 @@
 import React from 'react';
 
-const My_Listings = () => {
+const MyListings = () => {
     return (
         <div>
             My Listing
@@ -8,4 +8,4 @@ const My_Listings = () => {
     );
 };
 
-export default My_Listings;
+export default MyListings;

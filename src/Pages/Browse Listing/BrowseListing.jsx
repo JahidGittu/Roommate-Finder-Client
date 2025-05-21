@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Browse_Listing = () => {
+const BrowseListing = () => {
     return (
         <div>
             Browsing Listing
@@ -8,4 +8,4 @@ const Browse_Listing = () => {
     );
 };
 
-export default Browse_Listing;
+export default BrowseListing;

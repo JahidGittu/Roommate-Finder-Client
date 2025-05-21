@@ -4,6 +4,9 @@ import Home from "../Pages/Home/Home";
 import AuthLayout from "../Layouts/AuthLayout/AuthLayout";
 import Login from "../Pages/Login/Login";
 import Signup from "../Pages/Register/Signup";
+import FindRoommate from "../Pages/Find Roommate/FindRoommate";
+import BrowseListing from "../Pages/Browse Listing/BrowseListing";
+import MyListings from "../Pages/My Listings/MyListings";
 
 const router = createBrowserRouter([
     {
@@ -14,6 +17,18 @@ const router = createBrowserRouter([
                 index: true,
                 element: <Home />
             },
+            {
+                path: "/add-to-find-roommate",
+                element: <FindRoommate />
+            },
+            {
+                path: "/browse-listing",
+                element: <BrowseListing />
+            },
+            {
+                path:"/my-listing",
+                element:<MyListings/>
+            }
         ]
     },
     {

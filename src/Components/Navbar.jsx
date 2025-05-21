@@ -7,12 +7,11 @@ const Navbar = () => {
     const links = <>
 
         <NavLink to="/">Home</NavLink>
-        <NavLink to="/find-roomate">Add to Find Roommate</NavLink>
+        <NavLink to="/add-to-find-roommate">Add to Find Roommate</NavLink>
         <NavLink to="/browse-listing">Browse Listing</NavLink>
         <NavLink to="/my-listing">My Listings</NavLink>
 
     </>
-
 
     return (
         <div className="navbar bg-base-100 shadow-sm">
