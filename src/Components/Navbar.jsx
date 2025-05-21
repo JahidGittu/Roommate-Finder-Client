@@ -120,9 +120,11 @@ const Navbar = () => {
             </div>
 
             {/* Navbar end */}
-            <div className="navbar-end space-x-5 relative">
+            <div className="navbar-end space-x-5 relative min-h-[56px] flex items-center justify-center">
                 {loading ? (
-                    <span className="loading loading-dots loading-xl -ml-24"></span>
+                    <div className="flex justify-center items-center w-full">
+                        <span className="loading loading-dots loading-lg"></span>
+                    </div>
                 ) : user ? (
                     <div
                         className="flex items-center gap-3 cursor-pointer select-none"
@@ -143,15 +145,13 @@ const Navbar = () => {
                             <div
                                 onClick={() => setShowSetting((prev) => !prev)}
                                 className="w-10 h-10 md:w-14 md:h-14 rounded-full bg-gray-400 text-white flex items-center justify-center border border-gray-300 font-bold"
-                            >
-                                U
-                            </div>
+                            > U </div>
                         )}
 
                         {showSetting && (
-                            <div className="absolute right-0 top-20 bg-white text-black shadow-md rounded p-4 z-50 w-56 border">
+                            <div className="absolute right-0 top-16 bg-base-300 text-white shadow-md rounded p-4 z-50 w-56 border">
                                 <p className="font-bold truncate">{user?.displayName || 'No Name'}</p>
-                                <p className="truncate text-gray-700">{user?.email}</p>
+                                <p className="truncate text-gray-50">{user?.email}</p>
                                 <button
                                     onClick={handleLogout}
                                     className="btn btn-warning btn-sm mt-3 w-full flex items-center gap-2 justify-center"
@@ -161,21 +161,20 @@ const Navbar = () => {
                                 </button>
                             </div>
                         )}
+                        <button onClick={handleLogout} className='btn btn-warning' aria-label="Logout"> Logout <FaSignOutAlt /></button>
                     </div>
                 ) : (
                     <>
                         <Link
                             className="btn btn-outline btn-accent"
                             to="/auth/login"
-                            aria-label="Login"
-                        >
+                            aria-label="Login">
                             Login
                         </Link>
                         <Link
                             className="btn btn-primary"
                             to="/auth/signup"
-                            aria-label="Signup"
-                        >
+                            aria-label="Signup">
                             Signup
                         </Link>
                     </>
