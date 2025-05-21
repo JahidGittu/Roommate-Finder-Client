@@ -40,10 +40,10 @@ const FeaturedRoommates = () => {
                 <span className="font-medium">Location:</span> {post.location}
               </p>
               <p className="text-sm text-gray-500 mb-1">
-                <span className="font-medium">Rent:</span> {post.rent_amount}
+                <span className="font-medium">Rent:</span> {post.rent_Amount}
               </p>
               <p className="text-sm text-gray-500 mb-1">
-                <span className="font-medium">Room Type:</span> {post.roomtype}
+                <span className="font-medium">Room Type:</span> {post.room_Type}
               </p>
               <p className="text-sm text-gray-500 mb-3">
                 <span className="font-medium">Availability:</span> {post.availability ? "Available" : "Not Available"}
