@@ -9,6 +9,8 @@ import BrowseListing from "../Pages/Browse Listing/BrowseListing";
 import MyListings from "../Pages/My Listings/MyListings";
 import RoommateDetails from "../Components/RoomMateDetails";
 import PrivateRoutes from "../Provider/PrivateRoutes";
+import UpdatePost from "../Pages/UpdatePost/UpdatePost";
+import Profile from "../Pages/Profile/Profile";
 
 const router = createBrowserRouter([
     {
@@ -32,8 +34,16 @@ const router = createBrowserRouter([
                 element: <PrivateRoutes><BrowseListing /></PrivateRoutes>
             },
             {
-                path: "/my-listing",
+                path: "/my-listings",
                 element: <PrivateRoutes><MyListings /></PrivateRoutes>
+            },
+            {
+                path: "/my-listing/update/:id",
+                element: <PrivateRoutes><UpdatePost /></PrivateRoutes>
+            },
+            {
+                path: "/my-profile",
+                element: <PrivateRoutes><Profile /></PrivateRoutes>
             }
         ]
     },

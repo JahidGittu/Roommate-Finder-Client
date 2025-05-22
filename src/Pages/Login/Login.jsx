@@ -62,20 +62,18 @@ const Login = () => {
                     }
                 });
 
-
                 navigate(location.state || "/");
             })
             .catch(error => {
                 console.error("Login error", error.message);
+                setLoading(false)
                 MySwal.fire({
                     title: 'Login Failed',
                     text: error.message,
                     icon: 'error'
                 });
             })
-            .finally(() => {
-                setLoading(false);
-            });
+            
 
     };
 
@@ -98,15 +96,14 @@ const Login = () => {
             })
             .catch(error => {
                 console.error("Google login error", error.message);
+                setLoading(false)
                 MySwal.fire({
                     icon: 'error',
                     title: 'Google Login Failed',
                     text: error.message,
                 });
             })
-            .finally(() => {
-                setLoading(false);
-            });
+            
     };
 
     if (loading) {

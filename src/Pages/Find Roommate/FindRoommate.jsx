@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { Bounce, toast, ToastContainer } from 'react-toastify';
+import { AuthContext } from '../../Provider/AuthProvider';
 
 const FindRoommate = () => {
 
-    const [user, setUser] = useState(null)
+    const {user} = useContext(AuthContext)
 
     const toastTitle = <>
         <div className='flex justify-start items-center gap-4'>
@@ -115,11 +116,11 @@ const FindRoommate = () => {
 
                         <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
                             <label className="label">User Email</label>
-                            <input name='user_email' type="text" className="input w-full focus:outline-none focus:border-gray-600" placeholder='User Email' value={user?.email || ''} />
+                            <input name='user_email' type="text" readOnly className="input w-full bg-gray-600 focus:outline-none focus:border-gray-600" placeholder='User Email' value={user?.email || ''} />
                         </fieldset>
                         <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
                             <label className="label">User Name</label>
-                            <input name='user_name' type="text" className="input w-full focus:outline-none focus:border-gray-600" placeholder='User Name' value={user?.name || ''} />
+                            <input name='user_name' type="text" readOnly className="input w-full bg-gray-600 focus:outline-none focus:border-gray-600" placeholder='User Name' value={user?.displayName || ''} />
                         </fieldset>
                     </div>
 

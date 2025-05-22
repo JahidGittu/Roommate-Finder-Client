@@ -6,10 +6,15 @@ import { useNavigate } from 'react-router';
 import { AuthContext } from '../../Provider/AuthProvider';
 import Loading from '../../Components/Loading';
 import { FcGoogle } from 'react-icons/fc';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
 
 const Signup = () => {
+    const MySwal = withReactContent(Swal);
 
-    const { loading, setLoading, setUser, createUser, updateUser, createUserwithGoogle } = useContext(AuthContext)
+
+    const { loading, setLoading, setUser, createUser, updateUser, signInWithGoogle } = useContext(AuthContext)
     const [showPass, setShowPass] = useState(false)
     const [error, setError] = useState("")
     const location = useLocation();
@@ -56,39 +61,76 @@ const Signup = () => {
         createUser(email, password)
             .then(result => {
                 const user = result.user;
-                // console.log(user);
                 updateUser({
                     displayName: name,
                     photoURL: photo
                 })
                     .then(() => {
-                        // Use `auth.currentUser` or re-fetch user if needed
                         setUser({ ...user, displayName: name, photoURL: photo });
-                        setLoading(false)
+                        setLoading(false);
+                        MySwal.fire({
+                            title: <strong>Registration Successful!</strong>,
+                            html: <i>Welcome, {name}</i>,
+                            icon: 'success',
+                            customClass: {
+                                popup: 'custom-modal-bg'
+                            }
+                        });
+
                         navigate(location.state || "/");
                     })
                     .catch(error => {
-                        console.error("Create user error:", error.message);
                         setError(error.message);
+                        setLoading(false)
+                        MySwal.fire({
+                            title: 'Update Failed',
+                            text: error.message,
+                            icon: 'error'
+                        });
+
                     });
             })
             .catch(error => {
-                console.error("Create user error:", error.message);
+                setError(error.message);
+                setLoading(false)
+                MySwal.fire({
+                    title: 'Registration Failed',
+                    text: error.message,
+                    icon: 'error'
+                });
+
             });
+
 
     }
 
-    const handleGoogleLogin = async () => {
+    const handleGoogleLogin = () => {
         setLoading(true);
-        try {
-            await createUserwithGoogle();
-            navigate(location.state || "/");
-        } catch (error) {
-            console.error(error);
-        } finally {
-            setLoading(false);
-        }
+        signInWithGoogle()
+            .then(res => {
+                const user = res.user;
+                setUser(user);
+                MySwal.fire({
+                    title: <strong>Login Successful!</strong>,
+                    html: <i>Welcome back, {user.email}</i>,
+                    icon: "success",
+                    customClass: {
+                        popup: 'custom-modal-bg'
+                    }
+                });
+                navigate(location.state?.from?.pathname || "/");
+            })
+            .catch(error => {
+                setLoading(false)
+                MySwal.fire({
+                    icon: 'error',
+                    title: 'Google Login Failed',
+                    text: error.message,
+                });
+            })
+            
     };
+
 
 
     if (loading) {

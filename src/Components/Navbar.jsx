@@ -3,11 +3,14 @@ import { Link, NavLink, useNavigate } from 'react-router';
 import logo from '/Logo.png';
 import { AuthContext } from '../Provider/AuthProvider';
 import { FaSignOutAlt } from 'react-icons/fa';
+import useProfile from '../Provider/UserProfile';
 
 const Navbar = () => {
     const { user, logout, loading } = useContext(AuthContext);
     const [showSetting, setShowSetting] = useState(false);
     const navigate = useNavigate();
+
+    const { profileData } = useProfile();
 
     // Dropdown-এর বাইরের ক্লিক detect করার জন্য ref ও event handler
     const dropdownRef = useRef(null);
@@ -58,7 +61,7 @@ const Navbar = () => {
                 Browse Listing
             </NavLink>
             <NavLink
-                to="/my-listing"
+                to="/my-listings"
                 className={({ isActive }) =>
                     isActive ? 'text-violet-600 font-semibold' : undefined
                 }
@@ -130,14 +133,14 @@ const Navbar = () => {
                         className="flex items-center gap-3 cursor-pointer select-none"
                         ref={dropdownRef}
                     >
-                        <span className="hidden md:inline text-sm truncate max-w-[150px]">
+                        {/* <span className="hidden md:inline text-sm truncate max-w-[150px]">
                             {user?.email}
-                        </span>
+                        </span> */}
 
                         {user?.photoURL ? (
                             <img
                                 onClick={() => setShowSetting((prev) => !prev)}
-                                src={user.photoURL}
+                                src={profileData.photo || user.photoURL}
                                 alt="Profile"
                                 className="w-10 h-10 md:w-14 md:h-14 rounded-full border border-gray-300"
                             />
@@ -150,17 +153,26 @@ const Navbar = () => {
 
                         {showSetting && (
                             <div className="absolute right-0 top-16 bg-base-300 text-white shadow-md rounded p-4 z-50 w-56 border">
-                                <p className="font-bold truncate">{user?.displayName || 'No Name'}</p>
+                                <p className="font-bold truncate">{profileData.fullName || user?.displayName || 'No Name'}</p>
                                 <p className="truncate text-gray-50">{user?.email}</p>
+
+                                {/* 👇 Profile Button */}
+                                <Link
+                                    to="/my-profile"
+                                    className="btn btn-sm btn-info mt-2 w-full flex items-center gap-2 justify-center"
+                                >
+                                    My Profile
+                                </Link>
+
                                 <button
                                     onClick={handleLogout}
                                     className="btn btn-warning btn-sm mt-3 w-full flex items-center gap-2 justify-center"
-                                    aria-label="Logout"
                                 >
                                     Logout <FaSignOutAlt />
                                 </button>
                             </div>
                         )}
+
                         <button onClick={handleLogout} className='btn btn-warning' aria-label="Logout"> Logout <FaSignOutAlt /></button>
                     </div>
                 ) : (
