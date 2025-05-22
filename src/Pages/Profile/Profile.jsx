@@ -22,7 +22,7 @@ const Profile = () => {
           }
         });
     }
-  }, [user?.email]);
+  }, [user?.email, setProfileData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -75,7 +75,7 @@ const Profile = () => {
           <fieldset className="col-span-2 flex flex-col items-center justify-center bg-base-200 border-base-300 rounded-box border p-6 shadow-md">
             <label className="label text-lg font-semibold mb-2">Profile Picture</label>
             <div className="relative w-28 h-28 mb-4">
-              {profileData.photo ? (
+              {user?.photoURL ? (
                 <img
                   src={profileData.photo || user?.photoURL || 'https://via.placeholder.com/150'}
                   alt="Profile"

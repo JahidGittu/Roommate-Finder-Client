@@ -1,18 +1,53 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Bounce, toast, ToastContainer } from 'react-toastify';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router';
 import { AuthContext } from '../../Provider/AuthProvider';
 
 const FindRoommate = () => {
+    const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const [profileData, setProfileData] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-    const {user} = useContext(AuthContext)
+    useEffect(() => {
+        if (user?.email) {
+            fetch(`http://localhost:3000/profile?email=${user.email}`)
+                .then(res => res.json())
+                .then(data => {
+                    setProfileData(data);
+                    setLoading(false);
+                });
+        }
+    }, [user?.email]);
 
-    const toastTitle = <>
+    useEffect(() => {
+        if (!loading && profileData) {
+            const isComplete = profileData.photo
+
+            if (!isComplete) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Incomplete Profile!',
+                    text: 'Please update your profile to post a roommate request.',
+                    showCancelButton: true,
+                    confirmButtonText: 'Update Profile',
+                    cancelButtonText: 'OK',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        navigate('/my-profile');
+                    }
+                });
+            }
+        }
+    }, [loading, profileData, navigate]);
+
+    const toastTitle = (
         <div className='flex justify-start items-center gap-4'>
             <span>🦄</span>
             <span>Your roommate request has been added!</span>
         </div>
-    </>
-
+    );
 
     const handleAddRequest = (e) => {
         e.preventDefault();
@@ -20,9 +55,19 @@ const FindRoommate = () => {
         const formData = new FormData(form);
         const requestData = Object.fromEntries(formData.entries());
 
+        // Extra check before submit
+        const isComplete = profileData.photo
+
+        if (!isComplete) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Incomplete Profile',
+                text: 'Please complete your profile before submitting.',
+            });
+            return;
+        }
 
         requestData.availability = requestData.availability === "true";
-
 
         fetch('http://localhost:3000/requests', {
             method: "POST",
@@ -48,27 +93,11 @@ const FindRoommate = () => {
             transition: Bounce,
         });
         form.reset();
-
-
     }
-
-
 
     return (
         <div>
-            <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick={false}
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-                transition={Bounce}
-            />
+            <ToastContainer />
             <div className="max-w-4xl mx-auto p-6">
                 <h2 className="text-2xl font-bold mb-6 text-center">📝 Post Your Roommate Request</h2>
                 <form onSubmit={handleAddRequest}>
@@ -91,21 +120,16 @@ const FindRoommate = () => {
                         </fieldset>
                         <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
                             <label className="label">Lifestyle Preferences</label>
-                            <textarea name="lifestyle" id="" cols="30" rows="5" required placeholder='Muttaki, Friendly, etc.' className='w-full border border-gray-500 focus:outline-none rounded-sm p-2'></textarea>
+                            <textarea name="lifestyle" rows="5" required placeholder='Muttaki, Friendly, etc.' className='w-full border border-gray-500 focus:outline-none rounded-sm p-2'></textarea>
                         </fieldset>
                         <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
                             <label className="label">Description</label>
-                            <textarea name="description" id="" cols="30" rows="5" required placeholder='আমার এমন রুমমেট প্রয়োজন যে আল্লহকে ভয় করে ও ৫ ওয়াক্ত নামায পড়ে।' className='w-full border border-gray-500 focus:outline-none rounded-sm p-2'></textarea>
+                            <textarea name="description" rows="5" required placeholder='আমার এমন রুমমেট প্রয়োজন জে আল্লহকে ভয় করে ও ৫ উয়াক্ত নামায পড়ে।' className='w-full border border-gray-500 focus:outline-none rounded-sm p-2'></textarea>
                         </fieldset>
                         <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
                             <label className="label">Contact Info</label>
                             <input name='contact' type="text" required className="input w-full focus:outline-none focus:border-gray-600" placeholder="+880 1234-567890" />
                         </fieldset>
-                        {/* <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
-                        <label className="label">Availability</label>
-                        <input name='availability' type="text" className="input w-full focus:outline-none focus:border-gray-600" placeholder="available or not" />
-                    </fieldset> */}
-
                         <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
                             <label className="label">Availability</label>
                             <select name="availability" className="select w-full focus:outline-none focus:border-gray-600">
@@ -113,7 +137,6 @@ const FindRoommate = () => {
                                 <option value="false">Not Available</option>
                             </select>
                         </fieldset>
-
                         <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
                             <label className="label">User Email</label>
                             <input name='user_email' type="text" readOnly className="input w-full bg-gray-600 focus:outline-none focus:border-gray-600" placeholder='User Email' value={user?.email || ''} />
@@ -123,9 +146,7 @@ const FindRoommate = () => {
                             <input name='user_name' type="text" readOnly className="input w-full bg-gray-600 focus:outline-none focus:border-gray-600" placeholder='User Name' value={user?.displayName || ''} />
                         </fieldset>
                     </div>
-
                     <input type="submit" className="btn btn-full w-full focus:outline-none focus:border-gray-600 my-6" value="Add your Requirements" />
-
                 </form>
             </div>
         </div>

@@ -7,10 +7,10 @@ import Signup from "../Pages/Register/Signup";
 import FindRoommate from "../Pages/Find Roommate/FindRoommate";
 import BrowseListing from "../Pages/Browse Listing/BrowseListing";
 import MyListings from "../Pages/My Listings/MyListings";
-import RoommateDetails from "../Components/RoomMateDetails";
 import PrivateRoutes from "../Provider/PrivateRoutes";
 import UpdatePost from "../Pages/UpdatePost/UpdatePost";
 import Profile from "../Pages/Profile/Profile";
+import ListingDetails from "../Components/listingDetails";
 
 const router = createBrowserRouter([
     {
@@ -27,7 +27,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/details/:id",
-                element: <PrivateRoutes><RoommateDetails /></PrivateRoutes>
+                element: <PrivateRoutes> <ListingDetails/> </PrivateRoutes>
             },
             {
                 path: "/browse-listing",

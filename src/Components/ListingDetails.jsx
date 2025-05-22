@@ -1,15 +1,21 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router";
+import { Link, useParams, useNavigate } from "react-router";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import Loading from "./Loading";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import useProfile from "../Provider/UserProfile";
+import { useContext } from "react";
+import { AuthContext } from "../Provider/AuthProvider";
 
-const RoommateDetails = () => {
+const ListingDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
+  const { profileData } = useProfile();
+
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [liked, setLiked] = useState(false);
   const MySwal = withReactContent(Swal);
 
   useEffect(() => {
@@ -21,11 +27,46 @@ const RoommateDetails = () => {
       });
   }, [id]);
 
-  const handleLike = () => setLiked(!liked);
+  const handleLikeToggle = async () => {
+    if (!user?.email) {
+      return MySwal.fire("⚠️ লগইন প্রয়োজন", "লাইক করার জন্য আগে লগইন করুন", "warning");
+    }
+
+    try {
+      const res = await fetch(`http://localhost:3000/requests/${id}/like`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: user.email }),
+      });
+
+      if (!res.ok) throw new Error("Like update failed");
+
+      const updatedPost = await res.json();
+      setPost(updatedPost);
+    } catch (err) {
+      console.error(err);
+      MySwal.fire("❌ লাইক করতে সমস্যা হয়েছে", err.message, "error");
+    }
+  };
 
   const handleConfirmBooking = async () => {
     if (!post.availability) {
       return MySwal.fire("❌ ইতোমধ্যে বুকড", "এই রুমটি অন্য কেউ বুক করে ফেলেছে", "warning");
+    }
+
+    if (!profileData.photo) {
+      const result = await MySwal.fire({
+        icon: "warning",
+        title: "Incomplete Profile!",
+        text: "Please complete your profile before booking.",
+        showCancelButton: true,
+        confirmButtonText: "Update Profile",
+        cancelButtonText: "Cancel",
+      });
+
+      if (result.isConfirmed) {
+        return navigate("/my-profile");
+      } else return;
     }
 
     const prompt = await MySwal.fire({
@@ -34,10 +75,6 @@ const RoommateDetails = () => {
       confirmButtonText: "জি হ্যাঁ",
       denyButtonText: "না, ধন্যবাদ",
       icon: "question",
-      customClass: {
-        confirmButton: "bg-blue-600 text-white px-4 py-2 rounded",
-        denyButton: "bg-gray-300 text-black px-4 py-2 rounded",
-      },
     });
 
     let review = "";
@@ -47,12 +84,8 @@ const RoommateDetails = () => {
         input: "textarea",
         inputLabel: "আপনার অভিজ্ঞতা লিখুন",
         inputPlaceholder: "এখানে লিখুন...",
-        inputAttributes: {
-          "aria-label": "Type your review here"
-        },
         showCancelButton: true,
         confirmButtonText: "সাবমিট রিভিউ",
-        cancelButtonText: "বাতিল",
       });
 
       if (!value) return;
@@ -68,7 +101,7 @@ const RoommateDetails = () => {
       location: post.location,
       rent_Amount: post.rent_Amount,
       availability: post.availability,
-      review: review,
+      review,
       bookingTime: new Date().toISOString(),
     };
 
@@ -76,7 +109,7 @@ const RoommateDetails = () => {
       const res = await fetch("http://localhost:3000/bookings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(bookingData)
+        body: JSON.stringify(bookingData),
       });
 
       if (res.ok) {
@@ -93,13 +126,16 @@ const RoommateDetails = () => {
   if (loading) return <Loading />;
   if (!post) return <p className="text-center text-red-500 mt-10">Post not found</p>;
 
+  const isLiked = post?.likes?.includes(user?.email);
+
   return (
     <section className="py-10 px-4 md:px-6 lg:px-10 max-w-4xl mx-auto">
       <div className="bg-white shadow-lg rounded-2xl p-8 border border-gray-100">
         <div className="flex items-start justify-between mb-6">
           <h2 className="text-3xl font-bold text-primary">{post.title}</h2>
-          <button onClick={handleLike} className="text-red-500 text-xl">
-            {liked ? <FaHeart className="animate-pulse" /> : <FaRegHeart />}
+          <button onClick={handleLikeToggle} className="text-red-500 text-xl flex items-center gap-1">
+            {isLiked ? <FaHeart className="animate-pulse" /> : <FaRegHeart />}
+            <span className="text-sm">{post?.likes?.length || 0}</span>
           </button>
         </div>
 
@@ -136,4 +172,4 @@ const RoommateDetails = () => {
   );
 };
 
-export default RoommateDetails;
+export default ListingDetails;
