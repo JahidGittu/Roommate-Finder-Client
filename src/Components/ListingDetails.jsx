@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link, useParams, useNavigate } from "react-router";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import Loading from "./Loading";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import useProfile from "../Provider/UserProfile";
-import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const ListingDetails = () => {
@@ -28,7 +27,7 @@ const ListingDetails = () => {
   }, [id]);
 
   const handleLikeToggle = async () => {
-    if (!user?.email) {
+    if (!user?.email || !user?.displayName) {
       return MySwal.fire("⚠️ লগইন প্রয়োজন", "লাইক করার জন্য আগে লগইন করুন", "warning");
     }
 
@@ -36,7 +35,10 @@ const ListingDetails = () => {
       const res = await fetch(`http://localhost:3000/requests/${id}/like`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: user.email }),
+        body: JSON.stringify({
+          email: user.email,
+          name: user.displayName,
+        }),
       });
 
       if (!res.ok) throw new Error("Like update failed");
@@ -126,7 +128,7 @@ const ListingDetails = () => {
   if (loading) return <Loading />;
   if (!post) return <p className="text-center text-red-500 mt-10">Post not found</p>;
 
-  const isLiked = post?.likes?.includes(user?.email);
+  const isLiked = post?.likes?.some((like) => like.email === user?.email);
 
   return (
     <section className="py-10 px-4 md:px-6 lg:px-10 max-w-4xl mx-auto">

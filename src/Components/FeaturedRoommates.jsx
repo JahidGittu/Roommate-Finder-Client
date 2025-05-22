@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import Loading from "./Loading";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { FaHeart } from "react-icons/fa";
 
 const FeaturedRoommates = () => {
   const [allPosts, setAllPosts] = useState([]);
@@ -41,7 +42,7 @@ const FeaturedRoommates = () => {
   return (
     <section className="py-10 px-4 md:px-10 max-w-7xl mx-auto">
       <h2 className="text-3xl font-bold text-center mb-8 text-primary">
-        Featured Roommate Posts 
+        Featured Roommate Posts
       </h2>
 
       {visiblePosts.length === 0 ? (
@@ -54,6 +55,12 @@ const FeaturedRoommates = () => {
                 key={post._id}
                 className="relative bg-white rounded-xl shadow-md overflow-hidden flex flex-col justify-between"
               >
+                {/* Like count on top-right */}
+                <div className="absolute top-3 right-3 rounded-full text-sm flex items-center gap-1 ">
+                  <span>{post.likes?.length ? <FaHeart className="text-red-500" /> : ""}</span>
+                  <span className="text-gray-500">{post.likes?.length || ""}</span>
+                </div>
+
                 <div className="p-6">
                   <h3 className="text-xl font-semibold text-gray-800 mb-2">
                     {post.title}
@@ -82,7 +89,6 @@ const FeaturedRoommates = () => {
             ))}
           </div>
 
-          {/* View More Button: দেখাবে শুধুমাত্র যদি আরও দেখানোর থাকে */}
           {visiblePosts.length > 0 && !allShown && (
             <div className="flex justify-center mt-10">
               <button
