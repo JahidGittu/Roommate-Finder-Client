@@ -9,7 +9,7 @@ const FeaturedRoommates = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3000/requests/all")
+    fetch("https://roommate-finder-server-ten.vercel.app/requests/all")
       .then((res) => res.json())
       .then((data) => {
         const availablePosts = data.filter((post) => post.availability);

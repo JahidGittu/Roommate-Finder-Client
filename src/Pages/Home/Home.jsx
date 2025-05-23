@@ -6,18 +6,23 @@ import HowItWorks from '../../Components/HowItWorks';
 import WhyChooseUs from '../../Components/WhyChooseUs';
 import UserTestimonials from '../../Components/UserTestimonials';
 import RecentBooked from '../../Components/RecentBooked';
+import { Helmet } from 'react-helmet';
 
 
 const Home = () => {
     return (
         <div>
-            
-            <Banner/>
-            <FeaturedRoommates/>
-            <HowItWorks/>
-            <WhyChooseUs/>
-            <RecentBooked/>
-            <UserTestimonials/>
+
+            <Helmet>
+                <title>Home | Roommate Finder</title>
+            </Helmet>
+
+            <Banner />
+            <FeaturedRoommates />
+            <HowItWorks />
+            <WhyChooseUs />
+            <RecentBooked />
+            <UserTestimonials />
 
         </div>
     );

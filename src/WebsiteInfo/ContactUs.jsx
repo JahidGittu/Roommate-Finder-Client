@@ -4,6 +4,7 @@ import { Bounce, toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthContext } from '../Provider/AuthProvider';
 import useProfile from '../Provider/UserProfile';
+import { Helmet } from 'react-helmet';
 
 const ContactUs = () => {
 
@@ -44,6 +45,9 @@ const ContactUs = () => {
 
     return (
         <div className="max-w-3xl mx-auto p-6">
+            <Helmet>
+                <title>Contact Us | Roommate Finder</title>
+            </Helmet>
             <ToastContainer />
             <h2 className="text-3xl font-bold mb-6 text-center">Contact Us</h2>
             <form ref={form} onSubmit={sendEmail} className="grid gap-4">

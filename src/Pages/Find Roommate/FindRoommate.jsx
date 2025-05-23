@@ -3,6 +3,7 @@ import { Bounce, toast, ToastContainer } from 'react-toastify';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router';
 import { AuthContext } from '../../Provider/AuthProvider';
+import { Helmet } from 'react-helmet';
 
 const FindRoommate = () => {
     const { user } = useContext(AuthContext);
@@ -12,7 +13,7 @@ const FindRoommate = () => {
 
     useEffect(() => {
         if (user?.email) {
-            fetch(`http://localhost:3000/profile?email=${user.email}`)
+            fetch(`https://roommate-finder-server-ten.vercel.app/profile?email=${user.email}`)
                 .then(res => res.json())
                 .then(data => {
                     setProfileData(data);
@@ -69,7 +70,7 @@ const FindRoommate = () => {
 
         requestData.availability = requestData.availability === "true";
 
-        fetch('http://localhost:3000/requests', {
+        fetch('https://roommate-finder-server-ten.vercel.app/requests', {
             method: "POST",
             headers: {
                 'content-type': 'application/json'
@@ -104,6 +105,9 @@ const FindRoommate = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>Post Your Roommate Request | Roommate Finder</title>
+            </Helmet>
             <ToastContainer />
             <div className="max-w-4xl mx-auto p-6">
                 <h2 className="text-2xl font-bold mb-6 text-center">📝 Post Your Roommate Request</h2>

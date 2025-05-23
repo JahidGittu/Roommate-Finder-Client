@@ -18,7 +18,7 @@ const useProfile = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:3000/profile?email=${user.email}`)
+      fetch(`https://roommate-finder-server-ten.vercel.app/profile?email=${user.email}`)
         .then(res => res.json())
         .then(data => {
           if (data) {

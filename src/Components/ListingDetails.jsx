@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import useProfile from "../Provider/UserProfile";
 import { AuthContext } from "../Provider/AuthProvider";
+import { Helmet } from "react-helmet";
 
 const ListingDetails = () => {
   const { id } = useParams();
@@ -18,7 +19,7 @@ const ListingDetails = () => {
   const MySwal = withReactContent(Swal);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/requests/${id}`)
+    fetch(`https://roommate-finder-server-ten.vercel.app/requests/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setPost(data);
@@ -32,7 +33,7 @@ const ListingDetails = () => {
     }
 
     try {
-      const res = await fetch(`http://localhost:3000/requests/${id}/like`, {
+      const res = await fetch(`https://roommate-finder-server-ten.vercel.app/requests/${id}/like`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -108,7 +109,7 @@ const ListingDetails = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:3000/bookings", {
+      const res = await fetch("https://roommate-finder-server-ten.vercel.app/bookings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(bookingData),
@@ -132,6 +133,9 @@ const ListingDetails = () => {
 
   return (
     <section className="py-10 px-4 md:px-6 lg:px-10 max-w-4xl mx-auto">
+      <Helmet>
+        <title>Listing Details | Roommate Finder</title>
+      </Helmet>
       <div className="bg-white shadow-lg rounded-2xl p-8 border border-gray-100">
         <div className="flex items-start justify-between mb-6">
           <h2 className="text-3xl font-bold text-primary">{post.title}</h2>
@@ -154,11 +158,10 @@ const ListingDetails = () => {
 
         <div className="mt-6 flex justify-end">
           <button
-            className={`px-6 py-2 rounded-lg transition-all font-semibold ${
-              post.availability
-                ? "bg-green-600 hover:bg-green-700 text-white"
-                : "bg-gray-400 text-white cursor-not-allowed"
-            }`}
+            className={`px-6 py-2 rounded-lg transition-all font-semibold ${post.availability
+              ? "bg-green-600 hover:bg-green-700 text-white"
+              : "bg-gray-400 text-white cursor-not-allowed"
+              }`}
             onClick={handleConfirmBooking}
             disabled={!post.availability}
           >

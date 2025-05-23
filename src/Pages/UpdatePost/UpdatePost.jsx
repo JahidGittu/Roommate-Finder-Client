@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 
 import { AuthContext } from "../../Provider/AuthProvider";
 import Loading from "../../Components/Loading";
+import { Helmet } from "react-helmet";
 
 const UpdatePost = () => {
     const { id } = useParams();
@@ -34,7 +35,7 @@ const UpdatePost = () => {
             return;
         }
 
-        fetch(`http://localhost:3000/requests/${id}`)
+        fetch(`https://roommate-finder-server-ten.vercel.app/requests/${id}`)
             .then((res) => {
                 if (!res.ok) throw new Error("Failed to fetch post");
                 return res.json();
@@ -80,7 +81,7 @@ const UpdatePost = () => {
             });
 
             if (result.isConfirmed) {
-                const res = await fetch(`http://localhost:3000/requests/${id}`, {
+                const res = await fetch(`https://roommate-finder-server-ten.vercel.app/requests/${id}`, {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(formData),
@@ -115,6 +116,9 @@ const UpdatePost = () => {
 
     return (
         <section className="max-w-4xl mx-auto p-6 border border-gray-600 rounded shadow">
+            <Helmet>
+                <title>Update Post | Roommate Finder</title>
+            </Helmet>
             <h2 className="text-2xl font-bold mb-6">Update Roommate Post</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
                 {/* Title */}

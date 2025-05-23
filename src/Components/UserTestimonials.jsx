@@ -7,7 +7,7 @@ const UserTestimonials = () => {
   const [testimonials, setTestimonials] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/testimonials")
+    fetch("https://roommate-finder-server-ten.vercel.app/testimonials")
       .then((res) => res.json())
       .then((data) => setTestimonials(data));
   }, []);

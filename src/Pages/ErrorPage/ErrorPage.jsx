@@ -1,9 +1,13 @@
 import { Link } from "react-router";
 import { FaFaceFrown } from "react-icons/fa6";
+import { Helmet } from "react-helmet";
 
 const ErrorPage = () => {
     return (
         <div className="min-h-screen bg-black text-white flex flex-col justify-center items-center space-y-6 p-4 text-center">
+            <Helmet>
+                <title>Error 404 Nont Found | Roommate Finder</title>
+            </Helmet>
             <div className="flex items-center text-9xl font-bold">
                 <span className="text-white">4</span>
                 <span className="mx-4 text-purple-500">=</span>

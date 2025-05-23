@@ -3,6 +3,7 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import Loading from "../../Components/Loading";
 import { Link } from "react-router";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet";
 
 const MyListings = () => {
   const { user, loading: authLoading } = useContext(AuthContext);
@@ -11,7 +12,7 @@ const MyListings = () => {
 
   useEffect(() => {
     if (!authLoading && user?.email) {
-      fetch(`http://localhost:3000/my-requests?email=${user.email}`)
+      fetch(`https://roommate-finder-server-ten.vercel.app/my-requests?email=${user.email}`)
         .then(res => res.json())
         .then(data => {
           setMyPosts(data);
@@ -35,7 +36,7 @@ const MyListings = () => {
       confirmButtonText: "Yes, delete it!"
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/requests/${id}`, {
+        fetch(`https://roommate-finder-server-ten.vercel.app/requests/${id}`, {
           method: "DELETE"
         })
           .then(res => res.json())
@@ -53,6 +54,9 @@ const MyListings = () => {
 
   return (
     <section className="max-w-7xl mx-auto px-4 md:px-10 py-10">
+      <Helmet>
+        <title>My Listing | Roomate Finder</title>
+      </Helmet>
       <h2 className="text-3xl font-bold text-center text-primary mb-6">
         My Listings ({myPosts.length})
       </h2>

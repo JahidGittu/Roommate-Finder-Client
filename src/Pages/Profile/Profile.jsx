@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { Bounce, toast, ToastContainer } from 'react-toastify';
 import { AuthContext } from '../../Provider/AuthProvider';
 import useProfile from '../../Provider/UserProfile';
+import { Helmet } from 'react-helmet';
 
 const Profile = () => {
   const { user } = useContext(AuthContext);
@@ -9,7 +10,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:3000/profile?email=${user.email}`)
+      fetch(`https://roommate-finder-server-ten.vercel.app/profile?email=${user.email}`)
         .then(res => res.json())
         .then(data => {
           setProfileData(prev => ({
@@ -41,7 +42,7 @@ const Profile = () => {
     e.preventDefault();
     const payload = { ...profileData, email: user.email };
 
-    fetch('http://localhost:3000/profile', {
+    fetch('https://roommate-finder-server-ten.vercel.app/profile', {
       method: 'PUT',
       headers: {
         'content-type': 'application/json',
@@ -67,6 +68,9 @@ const Profile = () => {
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <Helmet>
+        <title>My Profile | Roommate Finder</title>
+      </Helmet>
       <ToastContainer />
       <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center text-primary">👤 My Profile</h2>
       <form onSubmit={handleSubmit} className="space-y-6">

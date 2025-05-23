@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import Loading from "../../Components/Loading";
+import { Helmet } from "react-helmet";
 
 const BrowseListing = () => {
     const [posts, setPosts] = useState([]);
@@ -10,7 +11,7 @@ const BrowseListing = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch("http://localhost:3000/requests")
+        fetch("https://roommate-finder-server-ten.vercel.app/requests")
             .then((res) => res.json())
             .then((data) => {
                 setPosts(data);
@@ -72,6 +73,9 @@ const BrowseListing = () => {
 
     return (
         <section className="max-w-7xl mx-auto px-4 md:px-10 py-10">
+            <Helmet>
+                <title>Browse Listing | Roommate Finder</title>
+            </Helmet>
             <h2 className="text-2xl md:text-3xl font-bold text-center text-primary mb-6">
                 {filteredPosts.length} listings found
             </h2>

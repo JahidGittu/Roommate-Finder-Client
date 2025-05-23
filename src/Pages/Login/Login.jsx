@@ -6,6 +6,7 @@ import Loading from '../../Components/Loading';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import { Helmet } from 'react-helmet';
 
 
 const Login = () => {
@@ -73,7 +74,7 @@ const Login = () => {
                     icon: 'error'
                 });
             })
-            
+
 
     };
 
@@ -103,7 +104,7 @@ const Login = () => {
                     text: error.message,
                 });
             })
-            
+
     };
 
     if (loading) {
@@ -114,6 +115,9 @@ const Login = () => {
     return (
 
         <div>
+            <Helmet>
+                <title>Login | Roommate Finder</title>
+            </Helmet>
             <div className="flex items-center justify-center min-h-screen p-4 ">
                 <div className="w-full max-w-md p-8 space-y-3 rounded-xl shadow-md border border-gray-500">
                     <h1 className="text-2xl font-bold text-center">Login</h1>

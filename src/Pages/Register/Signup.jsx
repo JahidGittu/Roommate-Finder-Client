@@ -8,6 +8,7 @@ import Loading from '../../Components/Loading';
 import { FcGoogle } from 'react-icons/fc';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import { Helmet } from 'react-helmet';
 
 
 const Signup = () => {
@@ -128,7 +129,7 @@ const Signup = () => {
                     text: error.message,
                 });
             })
-            
+
     };
 
 
@@ -139,6 +140,9 @@ const Signup = () => {
 
     return (
         <div className='min-h-screen flex justify-center items-center '>
+            <Helmet>
+                <title>SignUp | Roommate Finder</title>
+            </Helmet>
             <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl -mt-16 border border-gray-500">
                 <h2 className='text-2xl text-center font-bold pt-4'>Register Now!</h2>
                 <div className="card-body">

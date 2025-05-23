@@ -14,7 +14,7 @@ const RecentBooked = () => {
   const MySwal = withReactContent(Swal);
 
   useEffect(() => {
-    fetch("http://localhost:3000/requests/all")
+    fetch("https://roommate-finder-server-ten.vercel.app/requests/all")
       .then((res) => res.json())
       .then((data) => {
         // শুধু বুকড (availability === false) পোস্টগুলো ফিল্টার করো
