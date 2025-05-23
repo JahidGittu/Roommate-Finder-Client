@@ -3,6 +3,8 @@ import { Link } from "react-router";
 import Loading from "./Loading";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { FaHeart } from "react-icons/fa";
+
 
 const RecentBooked = () => {
   const [allPosts, setAllPosts] = useState([]);
@@ -60,6 +62,12 @@ const RecentBooked = () => {
                   Already Booked
                 </div>
 
+                {/* ❤️ Like Count */}
+                <div className="absolute top-6 right-3 rounded-full text-sm flex items-center gap-1 z-10">
+                  <span>{post.likes?.length ? <FaHeart className="text-red-500" /> : ""}</span>
+                  <span className="text-gray-500">{post.likes?.length || ""}</span>
+                </div>
+
                 <div className="p-6">
                   <h3 className="text-xl font-semibold text-gray-800 mb-2">
                     {post.title}
@@ -88,6 +96,7 @@ const RecentBooked = () => {
                   </Link>
                 </div>
               </div>
+
             ))}
           </div>
 

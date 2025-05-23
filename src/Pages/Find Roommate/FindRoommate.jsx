@@ -78,21 +78,28 @@ const FindRoommate = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                console.log(data)
+                toast(toastTitle, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                });
+                form.reset();
+            })
+            .catch(err => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Failed to post',
+                    text: err.message,
+                });
             });
 
-        toast(toastTitle, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: false,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Bounce,
-        });
-        form.reset();
     }
 
     return (
@@ -112,7 +119,7 @@ const FindRoommate = () => {
                         </fieldset>
                         <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
                             <label className="label">Rent Amount</label>
-                            <input name='rent_Amount' type="text" required className="input w-full focus:outline-none focus:border-gray-600" placeholder="1500 ৳ per month" />
+                            <input name='rent_Amount' type="number" required className="input w-full focus:outline-none focus:border-gray-600" />
                         </fieldset>
                         <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
                             <label className="label">Room Type</label>
@@ -124,7 +131,7 @@ const FindRoommate = () => {
                         </fieldset>
                         <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
                             <label className="label">Description</label>
-                            <textarea name="description" rows="5" required placeholder='আমার এমন রুমমেট প্রয়োজন জে আল্লহকে ভয় করে ও ৫ উয়াক্ত নামায পড়ে।' className='w-full border border-gray-500 focus:outline-none rounded-sm p-2'></textarea>
+                            <textarea name="description" rows="5" required placeholder='আমি একজন ছাত্র। ঢাকায় লেখা-পড়া করি, এখন রুমের খরচ কমানোর জন্য একজন রুমমেট প্রয়োজন।' className='w-full border border-gray-500 focus:outline-none rounded-sm p-2'></textarea>
                         </fieldset>
                         <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
                             <label className="label">Contact Info</label>

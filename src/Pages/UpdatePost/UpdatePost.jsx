@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 
 import { AuthContext } from "../../Provider/AuthProvider";
+import Loading from "../../Components/Loading";
 
 const UpdatePost = () => {
     const { id } = useParams();
@@ -97,11 +98,11 @@ const UpdatePost = () => {
                         showConfirmButton: false,
                     });
 
-                    // Delay to let the user see the success alert
                     // setTimeout(() => {
-                    //     navigate(-1); // অথবা navigate("/my-listings");
+                    //     navigate(-1); // Or navigate("/my-listings");
                     // }, 2100);
-                } else {
+                }
+                else {
                     await Swal.fire("তুমি তো কিছুই পরিবর্তন করোনি", "", "info");
                 }
             }
@@ -110,7 +111,7 @@ const UpdatePost = () => {
         }
     };
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <div className="flex justify-center py-10"><Loading /></div>;
 
     return (
         <section className="max-w-4xl mx-auto p-6 border border-gray-600 rounded shadow">

@@ -11,6 +11,7 @@ import PrivateRoutes from "../Provider/PrivateRoutes";
 import UpdatePost from "../Pages/UpdatePost/UpdatePost";
 import Profile from "../Pages/Profile/Profile";
 import ListingDetails from "../Components/listingDetails";
+import Error from "../Pages/404Error/4040Error";
 
 const router = createBrowserRouter([
     {
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
                 element: <Home />
             },
             {
-                path: "/add-to-find-roommate",
+                path: "/add-listing-to-find-roommate",
                 element: <PrivateRoutes><FindRoommate /></PrivateRoutes>
             },
             {
@@ -45,7 +46,8 @@ const router = createBrowserRouter([
                 path: "/my-profile",
                 element: <PrivateRoutes><Profile /></PrivateRoutes>
             }
-        ]
+        ],
+        errorElement:<Error/>
     },
     {
         path: "/auth",

@@ -13,6 +13,7 @@ const BrowseListing = () => {
         fetch("http://localhost:3000/requests")
             .then((res) => res.json())
             .then((data) => {
+                console.log("Fetched posts:", data.length); // Debug log
                 setPosts(data);
                 setFilteredPosts(data);
                 setLoading(false);
@@ -27,9 +28,14 @@ const BrowseListing = () => {
         const text = e.target.value;
         setSearchText(text);
 
+        if (text.trim() === "") {
+            sortAndSet(posts, sortOption);
+            return;
+        }
+
         const filtered = posts.filter((post) =>
-            [post.title, post.location, post.room_Type, post.rent_Amount.toString()].some((field) =>
-                field.toLowerCase().includes(text.toLowerCase())
+            [post.title, post.location, post.room_Type, String(post.rent_Amount)].some((field) =>
+                field?.toLowerCase().includes(text.toLowerCase())
             )
         );
 
@@ -39,7 +45,16 @@ const BrowseListing = () => {
     const handleSort = (e) => {
         const selected = e.target.value;
         setSortOption(selected);
-        sortAndSet(filteredPosts, selected);
+
+        const currentFiltered = searchText.trim() === ""
+            ? posts
+            : posts.filter((post) =>
+                [post.title, post.location, post.room_Type, String(post.rent_Amount)].some((field) =>
+                    field?.toLowerCase().includes(searchText.toLowerCase())
+                )
+            );
+
+        sortAndSet(currentFiltered, selected);
     };
 
     const sortAndSet = (data, option) => {
@@ -49,9 +64,6 @@ const BrowseListing = () => {
             sorted.sort((a, b) => b.rent_Amount - a.rent_Amount);
         } else if (option === "lowToHigh") {
             sorted.sort((a, b) => a.rent_Amount - b.rent_Amount);
-        } else if (option === "popular") {
-            // If popularity field exists in future, sort by that
-            // sorted.sort((a, b) => b.popularity - a.popularity);
         }
 
         setFilteredPosts(sorted);
@@ -62,13 +74,12 @@ const BrowseListing = () => {
     return (
         <section className="max-w-7xl mx-auto px-4 md:px-10 py-10">
             <h2 className="text-3xl font-bold text-center text-primary mb-6">
-                Browse All Listings ({filteredPosts.length})
+                {filteredPosts.length} listings found
             </h2>
 
             <div className="mb-6 flex flex-col md:flex-row justify-between items-center gap-4">
-                <div className="w-56">
+                <div className="w-56" />
 
-                </div>
                 <input
                     type="text"
                     value={searchText}
@@ -80,11 +91,12 @@ const BrowseListing = () => {
                 <select
                     onChange={handleSort}
                     value={sortOption}
-                    className="w-full md:w-60 px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary">
-                    <option className="bg-gray-900" value="">Sort by</option>
-                    <option className="bg-gray-900" value="highToLow">Rent: High to Low</option>
-                    <option className="bg-gray-900" value="lowToHigh">Rent: Low to High</option>
-                    <option className="bg-gray-900" value="popular">Popular</option>
+                    className="w-full md:w-60 px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                >
+                    <option value="">Sort by</option>
+                    <option value="highToLow">Rent: High to Low</option>
+                    <option value="lowToHigh">Rent: Low to High</option>
+                    <option value="popular">Popular</option>
                 </select>
             </div>
 

@@ -2,14 +2,17 @@ import React from 'react';
 import { Outlet } from 'react-router';
 import Footer from '../../Components/Footer';
 import Navbar from '../../Components/Navbar';
-import Banner from '../../Components/Banner';
-import Home from '../../Pages/Home/Home';
 
 const MainLayouts = () => {
     return (
-        <div>
-            <Navbar/>
-            <Outlet />
+        <div className="min-h-screen flex flex-col">
+            <Navbar />
+            
+            {/* Main content area which expands */}
+            <main className="flex-grow">
+                <Outlet />
+            </main>
+
             <Footer />
         </div>
     );

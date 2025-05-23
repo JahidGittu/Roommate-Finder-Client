@@ -11,7 +11,7 @@ const MyListings = () => {
 
   useEffect(() => {
     if (!authLoading && user?.email) {
-      fetch(`http://localhost:3000/requests?email=${user.email}`)
+      fetch(`http://localhost:3000/my-requests?email=${user.email}`)
         .then(res => res.json())
         .then(data => {
           setMyPosts(data);
@@ -58,7 +58,11 @@ const MyListings = () => {
       </h2>
 
       {myPosts.length === 0 ? (
-        <p className="text-center text-gray-500">You haven't added any listings yet.</p>
+        <p className="text-center text-gray-500">
+          You haven't added any listings yet.{" "}
+          <Link to="/add-listing-to-find-roommate" className="text-primary underline">Add New one now!</Link>.
+        </p>
+
       ) : (
         <div className="overflow-x-auto">
           <table className="min-w-full bg-white shadow-md rounded-xl overflow-hidden">

@@ -12,7 +12,6 @@ const UserTestimonials = () => {
       .then((data) => setTestimonials(data));
   }, []);
 
-  // Testimonials কে ৩ জন করে ভাগ করা
   const chunked = [];
   for (let i = 0; i < testimonials.length; i += 3) {
     chunked.push(testimonials.slice(i, i + 3));
@@ -46,16 +45,25 @@ const UserTestimonials = () => {
                   <p className="text-sm text-gray-700 italic mb-4">
                     “{item.review}”
                   </p>
-                  <div className="text-xs text-gray-500 mt-4">
-                    <p><strong>{item.user_name}</strong></p>
-                    <p>{item.location}</p>
-                    <p className="text-xs text-gray-400">
-                      {new Date(item.bookingTime).toLocaleDateString("bn-BD", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      })}
-                    </p>
+
+                  {/* ইউজার ইনফো সহ ছবি */}
+                  <div className="flex items-center gap-4 mt-6">
+                    <img
+                      src={item.photo || "https://via.placeholder.com/100"}
+                      alt={item.user_name}
+                      className="w-12 h-12 rounded-full object-cover border-2 border-primary"
+                    />
+                    <div className="text-sm text-gray-600">
+                      <p className="font-semibold">{item.user_name}</p>
+                      <p className="text-xs">{item.location}</p>
+                      <p className="text-xs text-gray-400">
+                        {new Date(item.bookingTime).toLocaleDateString("bn-BD", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })}
+                      </p>
+                    </div>
                   </div>
                 </div>
               ))}

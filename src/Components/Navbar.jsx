@@ -45,7 +45,7 @@ const Navbar = () => {
                 Home
             </NavLink>
             <NavLink
-                to="/add-to-find-roommate"
+                to="/add-listing-to-find-roommate"
                 className={({ isActive }) =>
                     isActive ? 'text-violet-600 font-semibold' : undefined
                 }

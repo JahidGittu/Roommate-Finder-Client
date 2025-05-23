@@ -1,16 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import Loading from "./Loading";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 import { FaHeart } from "react-icons/fa";
 
 const FeaturedRoommates = () => {
   const [allPosts, setAllPosts] = useState([]);
   const [visibleCount, setVisibleCount] = useState(6);
   const [loading, setLoading] = useState(true);
-
-  const MySwal = withReactContent(Swal);
 
   useEffect(() => {
     fetch("http://localhost:3000/requests/all")
@@ -27,10 +23,6 @@ const FeaturedRoommates = () => {
   }, []);
 
   const handleViewMore = () => {
-    const nextCount = visibleCount + 6;
-    if (nextCount >= allPosts.length) {
-      MySwal.fire("❌ No Roommate Available", "আর কোন রুমমেট পাওয়া যায়নি", "info");
-    }
     setVisibleCount((prev) => Math.min(prev + 6, allPosts.length));
   };
 
@@ -56,9 +48,11 @@ const FeaturedRoommates = () => {
                 className="relative bg-white rounded-xl shadow-md overflow-hidden flex flex-col justify-between"
               >
                 {/* Like count on top-right */}
-                <div className="absolute top-3 right-3 rounded-full text-sm flex items-center gap-1 ">
-                  <span>{post.likes?.length ? <FaHeart className="text-red-500" /> : ""}</span>
-                  <span className="text-gray-500">{post.likes?.length || ""}</span>
+                <div className="absolute top-3 right-3 rounded-full text-sm flex items-center gap-1">
+                  {post.likes?.length > 0 && <FaHeart className="text-red-500" />}
+                  {post.likes?.length > 0 && (
+                    <span className="text-gray-500">{post.likes.length}</span>
+                  )}
                 </div>
 
                 <div className="p-6">
@@ -89,7 +83,8 @@ const FeaturedRoommates = () => {
             ))}
           </div>
 
-          {visiblePosts.length > 0 && !allShown && (
+          {/* View More Button */}
+          {!allShown && (
             <div className="flex justify-center mt-10">
               <button
                 onClick={handleViewMore}
