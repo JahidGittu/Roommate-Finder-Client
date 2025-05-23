@@ -11,7 +11,12 @@ import PrivateRoutes from "../Provider/PrivateRoutes";
 import UpdatePost from "../Pages/UpdatePost/UpdatePost";
 import Profile from "../Pages/Profile/Profile";
 import ListingDetails from "../Components/listingDetails";
-import Error from "../Pages/404Error/4040Error";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
+import WebInfo from "../Layouts/WebInfo";
+import AboutUs from "../WebsiteInfo/AboutUs";
+import ContactUs from "../WebsiteInfo/ContactUs";
+import Jobs from "../WebsiteInfo/Jobs";
+import PressKit from "../WebsiteInfo/PressKit";
 
 const router = createBrowserRouter([
     {
@@ -28,7 +33,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/details/:id",
-                element: <PrivateRoutes> <ListingDetails/> </PrivateRoutes>
+                element: <PrivateRoutes> <ListingDetails /> </PrivateRoutes>
             },
             {
                 path: "/browse-listing",
@@ -47,7 +52,7 @@ const router = createBrowserRouter([
                 element: <PrivateRoutes><Profile /></PrivateRoutes>
             }
         ],
-        errorElement:<Error/>
+        errorElement: <ErrorPage></ErrorPage>
     },
     {
         path: "/auth",
@@ -62,6 +67,30 @@ const router = createBrowserRouter([
                 path: "/auth/signup",
                 element: <Signup />
             }
+        ]
+    },
+    {
+        path: '/webinfo',
+        element: <WebInfo />,
+        children: [
+            {
+                path: "/webinfo/aboutus",
+                element: <AboutUs />
+            },
+
+            {
+                path: "/webinfo/contact",
+                element: <ContactUs />
+            },
+            {
+                path: "/webinfo/jobs",
+                element: <Jobs />
+            },
+            {
+                path: "/webinfo/presskit",
+                element: <PressKit />
+            },
+
         ]
     }
 ]);

@@ -83,17 +83,19 @@ const MyListings = () => {
                   <td className="py-3 px-4">৳{post.rent_Amount}</td>
                   <td className="py-3 px-4">{post.room_Type}</td>
                   <td className="py-3 px-4 text-center space-x-2">
-                    <Link
-                      to={`/my-listing/update/${post._id}`}
-                      className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded-md text-sm">
-                      Update
-                    </Link>
-                    <button
-                      onClick={() => handleDelete(post._id)}
-                      className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm"
-                    >
-                      Delete
-                    </button>
+                    <div className="flex flex-col md:flex-row gap-4">
+                      <Link
+                        to={`/my-listing/update/${post._id}`}
+                        className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded-md text-sm">
+                        Update
+                      </Link>
+                      <button
+                        onClick={() => handleDelete(post._id)}
+                        className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm"
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}

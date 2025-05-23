@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import { FaFaceFrown } from "react-icons/fa6";
 
-const Error = () => {
+const ErrorPage = () => {
     return (
         <div className="min-h-screen bg-black text-white flex flex-col justify-center items-center space-y-6 p-4 text-center">
             <div className="flex items-center text-9xl font-bold">
@@ -28,4 +28,4 @@ const Error = () => {
     );
 };
 
-export default Error;
+export default ErrorPage;
