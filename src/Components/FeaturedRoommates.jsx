@@ -47,6 +47,11 @@ const FeaturedRoommates = () => {
                 key={post._id}
                 className="relative bg-white rounded-xl shadow-md overflow-hidden flex flex-col justify-between"
               >
+                {/* ✅ Availability badge */}
+                <div className="absolute top-16 right-0 bg-green-100 text-green-700 text-xs font-semibold px-2 py-1 rounded">
+                  ✅ Available
+                </div>
+
                 {/* Like count on top-right */}
                 <div className="absolute top-3 right-3 rounded-full text-sm flex items-center gap-1">
                   {post.likes?.length > 0 && <FaHeart className="text-red-500" />}

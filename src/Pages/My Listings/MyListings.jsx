@@ -81,8 +81,15 @@ const MyListings = () => {
             </thead>
             <tbody>
               {myPosts.map(post => (
-                <tr key={post._id} className="border-b bg-gray-800 hover:bg-gray-900 duration-300">
-                  <td className="py-3 px-4">{post.title}</td>
+                <tr key={post._id} className="border-b bg-gray-900">
+                  <td className="py-3 px-4">
+                    <Link
+                      to={`/details/${post._id}`}
+                      className="text-primary hover:underline"
+                    >
+                      {post.title}
+                    </Link>
+                  </td>
                   <td className="py-3 px-4">{post.location}</td>
                   <td className="py-3 px-4">৳{post.rent_Amount}</td>
                   <td className="py-3 px-4">{post.room_Type}</td>
@@ -90,7 +97,8 @@ const MyListings = () => {
                     <div className="flex flex-col md:flex-row gap-4">
                       <Link
                         to={`/my-listing/update/${post._id}`}
-                        className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded-md text-sm">
+                        className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded-md text-sm"
+                      >
                         Update
                       </Link>
                       <button
@@ -104,6 +112,7 @@ const MyListings = () => {
                 </tr>
               ))}
             </tbody>
+
           </table>
         </div>
       )}

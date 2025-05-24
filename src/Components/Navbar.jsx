@@ -3,24 +3,36 @@ import { Link, NavLink, useNavigate } from 'react-router';
 import logo from '/Logo.png';
 import { AuthContext } from '../Provider/AuthProvider';
 import { FaSignOutAlt } from 'react-icons/fa';
+import { AiFillSun, AiFillMoon } from 'react-icons/ai';
 import useProfile from '../Provider/UserProfile';
 
 const Navbar = () => {
     const { user, logout, loading } = useContext(AuthContext);
     const [showSetting, setShowSetting] = useState(false);
     const navigate = useNavigate();
-
     const { profileData } = useProfile();
+
+    // থিম স্টেট (light/dark)
+    const [theme, setTheme] = useState('light');
 
     // Dropdown-এর বাইরের ক্লিক detect করার জন্য ref ও event handler
     const dropdownRef = useRef(null);
 
     useEffect(() => {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            setTheme(savedTheme);
+        } else {
+            document.documentElement.setAttribute('data-theme', 'mytheme');
+            setTheme('light');
+        }
+    }, []);
+
+
+    useEffect(() => {
         function handleClickOutside(event) {
-            if (
-                dropdownRef.current &&
-                !dropdownRef.current.contains(event.target)
-            ) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setShowSetting(false);
             }
         }
@@ -34,37 +46,42 @@ const Navbar = () => {
         };
     }, [showSetting]);
 
+    const toggleTheme = () => {
+        if (theme === 'light') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            setTheme('dark');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'mytheme');
+            setTheme('light');
+            localStorage.setItem('theme', 'light');
+        }
+    };
+
+
     const links = (
         <>
             <NavLink
                 to="/"
-                className={({ isActive }) =>
-                    isActive ? 'text-violet-600 font-semibold' : undefined
-                }
+                className={({ isActive }) => (isActive ? 'text-violet-600 font-semibold' : undefined)}
             >
                 Home
             </NavLink>
             <NavLink
                 to="/add-listing-to-find-roommate"
-                className={({ isActive }) =>
-                    isActive ? 'text-violet-600 font-semibold' : undefined
-                }
+                className={({ isActive }) => (isActive ? 'text-violet-600 font-semibold' : undefined)}
             >
                 Add to Find Roommate
             </NavLink>
             <NavLink
                 to="/browse-listing"
-                className={({ isActive }) =>
-                    isActive ? 'text-violet-600 font-semibold' : undefined
-                }
+                className={({ isActive }) => (isActive ? 'text-violet-600 font-semibold' : undefined)}
             >
                 Browse Listing
             </NavLink>
             <NavLink
                 to="/my-listings"
-                className={({ isActive }) =>
-                    isActive ? 'text-violet-600 font-semibold' : undefined
-                }
+                className={({ isActive }) => (isActive ? 'text-violet-600 font-semibold' : undefined)}
             >
                 My Listings
             </NavLink>
@@ -86,16 +103,8 @@ const Navbar = () => {
             <div className="navbar-start">
                 {/* Mobile dropdown */}
                 <div className="dropdown">
-                    <label
-                        tabIndex={0}
-                        className="btn btn-ghost lg:hidden p-0"
-                        aria-label="Open menu"
-                    >
-                        <img
-                            className="w-14 h-14 object-cover rounded-2xl"
-                            src={logo}
-                            alt="Logo"
-                        />
+                    <label tabIndex={0} className="btn btn-ghost lg:hidden p-0" aria-label="Open menu">
+                        <img className="w-14 h-14 object-cover rounded-2xl" src={logo} alt="Logo" />
                     </label>
                     <ul
                         tabIndex={0}
@@ -123,20 +132,27 @@ const Navbar = () => {
             </div>
 
             {/* Navbar end */}
-            <div className="navbar-end space-x-5 relative min-h-[56px] flex items-center justify-center">
+            <div className="navbar-end space-x-2 relative min-h-[56px] flex items-center justify-center">
+
+                {/* থিম টগল বাটন */}
+                <button
+                    onClick={toggleTheme}
+                    aria-label="Toggle Dark/Light Theme"
+                    title="Toggle Dark/Light Theme"
+                    className="text-3xl text-yellow-500 dark:text-gray-300 focus:outline-none transition-colors duration-300"
+                >
+                    {theme === 'light' ? <AiFillSun color='orange' /> : <AiFillMoon color='#2B4D58' />}
+                </button>
+
                 {loading ? (
                     <div className="flex justify-center items-center w-full">
                         <span className="loading loading-dots loading-lg"></span>
                     </div>
                 ) : user ? (
                     <div
-                        className="flex items-center gap-3 cursor-pointer select-none"
+                        className="flex items-center gap-1 cursor-pointer select-none"
                         ref={dropdownRef}
                     >
-                        {/* <span className="hidden md:inline text-sm truncate max-w-[150px]">
-                            {user?.email}
-                        </span> */}
-
                         {user?.photoURL ? (
                             <img
                                 onClick={() => setShowSetting((prev) => !prev)}
@@ -148,15 +164,19 @@ const Navbar = () => {
                             <div
                                 onClick={() => setShowSetting((prev) => !prev)}
                                 className="w-10 h-10 md:w-14 md:h-14 rounded-full bg-gray-400 text-white flex items-center justify-center border border-gray-300 font-bold"
-                            > U </div>
+                            >
+                                U
+                            </div>
                         )}
 
                         {showSetting && (
                             <div className="absolute right-0 top-16 bg-base-300 text-white shadow-md rounded p-4 z-50 w-56 border">
-                                <p className="font-bold truncate">{profileData.fullName || user?.displayName || 'No Name'}</p>
+                                <p className="font-bold truncate">
+                                    {profileData.fullName || user?.displayName || 'No Name'}
+                                </p>
                                 <p className="truncate text-gray-50">{user?.email}</p>
 
-                                {/* 👇 Profile Button */}
+                                {/* Profile Button */}
                                 <Link
                                     to="/my-profile"
                                     className="btn btn-sm btn-info mt-2 w-full flex items-center gap-2 justify-center"
@@ -173,20 +193,24 @@ const Navbar = () => {
                             </div>
                         )}
 
-                        <button onClick={handleLogout} className='btn btn-warning' aria-label="Logout"> Logout <FaSignOutAlt /></button>
+                        <button onClick={handleLogout} className="btn btn-warning" aria-label="Logout">
+                            Logout <FaSignOutAlt />
+                        </button>
                     </div>
                 ) : (
                     <>
                         <Link
                             className="btn btn-outline btn-accent"
                             to="/auth/login"
-                            aria-label="Login">
+                            aria-label="Login"
+                        >
                             Login
                         </Link>
                         <Link
                             className="btn btn-primary"
                             to="/auth/signup"
-                            aria-label="Signup">
+                            aria-label="Signup"
+                        >
                             Signup
                         </Link>
                     </>

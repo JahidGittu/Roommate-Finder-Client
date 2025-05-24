@@ -14,19 +14,18 @@ const RecentBooked = () => {
   const MySwal = withReactContent(Swal);
 
   useEffect(() => {
-    fetch("https://roommate-finder-server-ten.vercel.app/requests/all")
+    fetch("https://roommate-finder-server-ten.vercel.app/bookings")
       .then((res) => res.json())
       .then((data) => {
-        // শুধু বুকড (availability === false) পোস্টগুলো ফিল্টার করো
-        const bookedPosts = data.filter((post) => !post.availability);
-        setAllPosts(bookedPosts);
+        setAllPosts(data);
         setLoading(false);
       })
       .catch((error) => {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching bookings:", error);
         setLoading(false);
       });
   }, []);
+
 
   const handleViewMore = () => {
     const nextCount = visibleCount + 6;

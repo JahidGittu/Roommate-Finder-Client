@@ -7,10 +7,40 @@ const UserTestimonials = () => {
   const [testimonials, setTestimonials] = useState([]);
 
   useEffect(() => {
-    fetch("https://roommate-finder-server-ten.vercel.app/testimonials")
-      .then((res) => res.json())
-      .then((data) => setTestimonials(data));
+    const fetchData = async () => {
+      const res = await fetch("https://roommate-finder-server-ten.vercel.app/bookings");
+      const bookings = await res.json();
+
+      const reviewed = bookings.filter((item) => item.review?.trim());
+
+      const enriched = await Promise.all(
+        reviewed.map(async (item) => {
+          try {
+            const profileRes = await fetch(`https://roommate-finder-server-ten.vercel.app/profile?email=${item.reviewer_email}`);
+            const profileData = await profileRes.json();
+            return {
+              ...item,
+              photo: profileData.photo || "/default.jpg",
+              name: profileData.fullName || "Anonymous",
+            };
+          } catch (error) {
+            console.error("Profile fetch error for", item.reviewer_email);
+            return {
+              ...item,
+              photo: "/default.jpg",
+              name: "Anonymous",
+            };
+          }
+        })
+      );
+
+      setTestimonials(enriched);
+    };
+
+    fetchData();
   }, []);
+
+
 
   const chunked = [];
   for (let i = 0; i < testimonials.length; i += 3) {
