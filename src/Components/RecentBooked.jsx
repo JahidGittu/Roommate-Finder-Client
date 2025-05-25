@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router"; 
+import { Link } from "react-router";
 import Loading from "./Loading";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 import { FaHeart } from "react-icons/fa";
 
 const RecentBooked = () => {
@@ -10,28 +8,26 @@ const RecentBooked = () => {
   const [visibleCount, setVisibleCount] = useState(6);
   const [loading, setLoading] = useState(true);
 
-  const MySwal = withReactContent(Swal);
-
   useEffect(() => {
-    fetch("https://roommate-finder-server-ten.vercel.app/requests/all")
-      .then((res) => res.json())
-      .then((data) => {
-        const bookedPosts = data.filter((post) => post.availability === false);
+    const fetchBookedPosts = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch("https://roommate-finder-server-ten.vercel.app/requests/all");
+        const data = await res.json();
+        const bookedPosts = data.filter(post => post.availability === false);
         setAllPosts(bookedPosts);
-        setLoading(false);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("Error fetching booked posts:", error);
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchBookedPosts();
   }, []);
 
   const handleViewMore = () => {
-    const nextCount = visibleCount + 6;
-    if (nextCount >= allPosts.length) {
-      MySwal.fire("❌ No more booked roommates", "আর কোন বুকড রুমমেট পাওয়া যায়নি", "info");
-    }
-    setVisibleCount((prev) => Math.min(prev + 6, allPosts.length));
+    setVisibleCount(prev => Math.min(prev + 6, allPosts.length));
   };
 
   if (loading) return <Loading />;
@@ -102,7 +98,7 @@ const RecentBooked = () => {
           </div>
 
           {/* View More Button */}
-          {visiblePosts.length > 0 && !allShown && (
+          {!allShown && (
             <div className="flex justify-center mt-10">
               <button
                 onClick={handleViewMore}

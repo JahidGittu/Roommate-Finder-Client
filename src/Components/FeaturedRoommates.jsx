@@ -9,18 +9,22 @@ const FeaturedRoommates = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://roommate-finder-server-ten.vercel.app/requests/all")
-      .then((res) => res.json())
-      .then((data) => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("https://roommate-finder-server-ten.vercel.app/requests/all");
+        const data = await res.json();
         const availablePosts = data.filter((post) => post.availability);
         setAllPosts(availablePosts);
-        setLoading(false);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchData();
   }, []);
+
 
   const handleViewMore = () => {
     setVisibleCount((prev) => Math.min(prev + 6, allPosts.length));

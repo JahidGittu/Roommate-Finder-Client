@@ -57,7 +57,8 @@ const FindRoommate = () => {
         const requestData = Object.fromEntries(formData.entries());
 
         // Extra check before submit
-        const isComplete = profileData.photo
+        // const isComplete = profileData.photo
+        const isComplete = (user?.photoURL || (profileData && profileData.photo));
 
         if (!isComplete) {
             Swal.fire({
