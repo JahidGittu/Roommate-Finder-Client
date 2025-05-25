@@ -170,27 +170,24 @@ const ListingDetails = () => {
 
       <div className="bg-white shadow-lg rounded-2xl p-8 border border-gray-100">
         <div>
-          <div className="mb-4 text-gray-600 text-sm flex justify-end">
-            {post?.likes?.length || 0} people interested in
-          </div>
+          <div className="relative flex justify-end items-center space-x-24 md:space-x-42 mb-6">
+            <div className="text-gray-600 text-sm flex justify-end">
+              {post?.likes?.length || 0} people interested in
+            </div>
 
-          <div className="flex items-start justify-between mb-6">
-            <h2 className="text-3xl font-bold text-primary">{post.title}</h2>
-
-            <div className="text-right flex flex-col justify-center items-center min-h-[80px]">
+            <div className="text-right flex flex-col justify-center items-center min-h-[80px] absolute  right-0">
               <button
                 onClick={handleLikeToggle}
                 disabled={isOwnPost}
-                className={`text-red-500 text-xl flex items-center gap-1 ${
-                  isOwnPost ? "cursor-not-allowed opacity-50" : "cursor-pointer"
-                }`}
+                className={`text-red-500 text-xl flex items-center gap-1 ${isOwnPost ? "cursor-not-allowed opacity-50" : "cursor-pointer"
+                  }`}
                 title={isOwnPost ? "আপনি নিজের পোস্টে লাইক দিতে পারবেন না" : "লাইক করুন"}
               >
                 <FaHeart />
                 <span className="text-sm">{post?.likes?.length || 0}</span>
               </button>
 
-              <p className="mt-2 text-sm text-blue-600">
+              <p className="mt-2 text-sm text-blue-600 flex flex-col md:flex-row items-center justify-center">
                 📞 Contact:{" "}
                 {canShowContact ? (
                   <a
@@ -204,6 +201,12 @@ const ListingDetails = () => {
                 )}
               </p>
             </div>
+          </div>
+
+          <div className="flex items-start justify-between mb-6">
+            <h2 className="text-3xl font-bold text-primary">{post.title}</h2>
+
+
           </div>
         </div>
 
@@ -236,11 +239,10 @@ const ListingDetails = () => {
 
         <div className="mt-6 flex justify-end">
           <button
-            className={`px-6 py-2 rounded-lg transition-all font-semibold ${
-              post.availability
-                ? "bg-green-600 hover:bg-green-700 text-white"
-                : "bg-gray-400 text-white cursor-not-allowed"
-            }`}
+            className={`px-6 py-2 rounded-lg transition-all font-semibold ${post.availability
+              ? "bg-green-600 hover:bg-green-700 text-white"
+              : "bg-gray-400 text-white cursor-not-allowed"
+              }`}
             onClick={handleConfirmBooking}
             disabled={!post.availability}
           >

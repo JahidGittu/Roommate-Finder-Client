@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router";
+import { Link } from "react-router"; 
 import Loading from "./Loading";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { FaHeart } from "react-icons/fa";
-
 
 const RecentBooked = () => {
   const [allPosts, setAllPosts] = useState([]);
@@ -14,18 +13,18 @@ const RecentBooked = () => {
   const MySwal = withReactContent(Swal);
 
   useEffect(() => {
-    fetch("https://roommate-finder-server-ten.vercel.app/bookings")
+    fetch("https://roommate-finder-server-ten.vercel.app/requests/all")
       .then((res) => res.json())
       .then((data) => {
-        setAllPosts(data);
+        const bookedPosts = data.filter((post) => post.availability === false);
+        setAllPosts(bookedPosts);
         setLoading(false);
       })
       .catch((error) => {
-        console.error("Error fetching bookings:", error);
+        console.error("Error fetching booked posts:", error);
         setLoading(false);
       });
   }, []);
-
 
   const handleViewMore = () => {
     const nextCount = visibleCount + 6;
@@ -63,8 +62,12 @@ const RecentBooked = () => {
 
                 {/* ❤️ Like Count */}
                 <div className="absolute top-6 right-3 rounded-full text-sm flex items-center gap-1 z-10">
-                  <span>{post.likes?.length ? <FaHeart className="text-red-500" /> : ""}</span>
-                  <span className="text-gray-500">{post.likes?.length || ""}</span>
+                  {post.likes?.length > 0 && (
+                    <>
+                      <FaHeart className="text-red-500" />
+                      <span className="text-gray-500">{post.likes.length}</span>
+                    </>
+                  )}
                 </div>
 
                 <div className="p-6">
@@ -75,14 +78,14 @@ const RecentBooked = () => {
                     <span className="font-medium">Location:</span> {post.location}
                   </p>
                   <p className="text-sm text-gray-500 mb-1">
-                    <span className="font-medium">Rent:</span> {post.rent_Amount}
+                    <span className="font-medium">Rent:</span> ৳{post.rent_Amount}
                   </p>
                   <p className="text-sm text-gray-500 mb-1">
                     <span className="font-medium">Room Type:</span>{" "}
                     {post.room_Type || "Not specified"}
                   </p>
                   <p className="text-sm text-gray-500 mb-3">
-                    <span className="font-medium">Availability:</span> Not Available
+                    <span className="font-medium">Availability:</span> ❌ Not Available
                   </p>
                 </div>
 
@@ -95,7 +98,6 @@ const RecentBooked = () => {
                   </Link>
                 </div>
               </div>
-
             ))}
           </div>
 
