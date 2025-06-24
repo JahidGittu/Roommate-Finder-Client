@@ -1,0 +1,32 @@
+[
+  {
+    "id": "slide1",
+    "image": "https://i.ibb.co/dwCRB81q/Slide1-Image.jpg",
+    "title": "Find Roommates Easily",
+    "description": "এক ক্লিকেই খুঁজে নিন আপনার পছন্দের রুমমেট!"
+  },
+  {
+    "id": "slide2",
+    "image": "https://i.ibb.co/39qfn2zK/Verified-Profile.jpg",
+    "title": "Verified Profiles Only",
+    "description": "সব রুমমেট প্রোফাইল যাচাই করা — নিরাপদ থাকুন, নিশ্চিন্ত থাকুন।"
+  },
+  {
+    "id": "slide3",
+    "image": "https://i.ibb.co/7JwsM9pX/Budget-Friendly.jpg",
+    "title": "Budget-Friendly Options",
+    "description": "কম খরচে রুমমেট পেতে আমাদের সাথেই থাকুন।"
+  },
+  {
+    "id": "slide4",
+    "image": "https://i.ibb.co/KpqdX237/Location-Based-Search.jpg",
+    "title": "Location-Based Search",
+    "description": "আপনার লোকেশনের উপর ভিত্তি করে রুমমেট খুঁজুন।"
+  },
+  {
+    "id": "slide5",
+    "image": "https://i.ibb.co/27X0wn4g/Post-Your-Rom.jpg",
+    "title": "Post Your Room",
+    "description": "আপনার খালি রুম পোস্ট করুন, নতুন রুমমেট খুঁজে নিন।"
+  }
+]
