@@ -48,7 +48,7 @@ const Banner = () => {
   if (sliderData.length === 0) return null;
 
   return (
-    <div className="relative rounded-xl overflow-hidden">
+    <div className="relative rounded-t-xl overflow-hidden">
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         spaceBetween={30}
@@ -59,17 +59,17 @@ const Banner = () => {
         loop
         onSwiper={handleSwiperInit}
         onSlideChange={handleSlideChange}
-        className="rounded-xl"
+        className="rounded-t-xl"
       >
         {sliderData.map((slide, index) => (
           <SwiperSlide key={slide.id}>
             <div className="relative">
               <img
                 src={slide.image}
-                className="w-full h-[400px] object-cover rounded-xl"
+                className="w-full h-[540px] object-cover rounded-t-xl"
                 alt={slide.title}
               />
-              <div className="absolute inset-0 bg-black opacity-60 flex flex-col justify-center items-center md:items-start text-white p-12 md:p-24">
+              <div className="absolute inset-0 bg-black opacity-70 flex flex-col justify-center items-center text-white p-12 md:p-24">
                 <h2 className="text-3xl font-bold mb-2">
                   {activeIndex === index ? (
                     <Typewriter

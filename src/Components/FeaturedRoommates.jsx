@@ -5,7 +5,7 @@ import { FaHeart } from "react-icons/fa";
 
 const FeaturedRoommates = () => {
   const [allPosts, setAllPosts] = useState([]);
-  const [visibleCount, setVisibleCount] = useState(6);
+  const [visibleCount, setVisibleCount] = useState(4);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const FeaturedRoommates = () => {
 
 
   const handleViewMore = () => {
-    setVisibleCount((prev) => Math.min(prev + 6, allPosts.length));
+    setVisibleCount((prev) => Math.min(prev + 4, allPosts.length));
   };
 
   if (loading) return <Loading />;
@@ -45,14 +45,14 @@ const FeaturedRoommates = () => {
         <p className="text-center text-gray-500">No available roommates to show.</p>
       ) : (
         <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {visiblePosts.map((post) => (
               <div
                 key={post._id}
                 className="relative bg-white rounded-xl shadow-md overflow-hidden flex flex-col justify-between"
               >
                 {/* ✅ Availability badge */}
-                <div className="absolute top-16 right-0 bg-green-100 text-green-700 text-xs font-semibold px-2 py-1 rounded">
+                <div className="absolute bottom-0 right-0 bg-green-100 text-green-700 text-xs font-semibold px-2 py-1 rounded">
                   ✅ Available
                 </div>
 

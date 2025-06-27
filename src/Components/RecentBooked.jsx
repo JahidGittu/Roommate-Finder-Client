@@ -5,7 +5,7 @@ import { FaHeart } from "react-icons/fa";
 
 const RecentBooked = () => {
   const [allPosts, setAllPosts] = useState([]);
-  const [visibleCount, setVisibleCount] = useState(6);
+  const [visibleCount, setVisibleCount] = useState(4);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const RecentBooked = () => {
   }, []);
 
   const handleViewMore = () => {
-    setVisibleCount(prev => Math.min(prev + 6, allPosts.length));
+    setVisibleCount(prev => Math.min(prev + 4, allPosts.length));
   };
 
   if (loading) return <Loading />;
@@ -45,7 +45,7 @@ const RecentBooked = () => {
         <p className="text-center text-gray-500">No booked roommates to show.</p>
       ) : (
         <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {visiblePosts.map((post) => (
               <div
                 key={post._id}

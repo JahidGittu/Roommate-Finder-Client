@@ -61,30 +61,59 @@ const Navbar = () => {
 
     const links = (
         <>
-            <NavLink
-                to="/"
-                className={({ isActive }) => (isActive ? 'text-violet-600 font-semibold' : undefined)}
-            >
-                Home
-            </NavLink>
-            <NavLink
-                to="/add-listing-to-find-roommate"
-                className={({ isActive }) => (isActive ? 'text-violet-600 font-semibold' : undefined)}
-            >
-                Add to Find Roommate
-            </NavLink>
-            <NavLink
-                to="/browse-listing"
-                className={({ isActive }) => (isActive ? 'text-violet-600 font-semibold' : undefined)}
-            >
-                Browse Listing
-            </NavLink>
-            <NavLink
-                to="/my-listings"
-                className={({ isActive }) => (isActive ? 'text-violet-600 font-semibold' : undefined)}
-            >
-                My Listings
-            </NavLink>
+            {
+                !user ?
+                    <>
+                        < NavLink
+                            to="/"
+                            className={({ isActive }) => (isActive ? 'text-violet-600 font-semibold' : undefined)}
+                        >
+                            Home
+                        </NavLink >
+                        < NavLink
+                            to="/all-listing"
+                            className={({ isActive }) => (isActive ? 'text-violet-600 font-semibold' : undefined)}
+                        >
+                            All RoomMate Post
+                        </NavLink >
+
+                    </>
+                    :
+                    <>
+                        <NavLink
+                            to="/"
+                            className={({ isActive }) => (isActive ? 'text-violet-600 font-semibold' : undefined)}
+                        >
+                            Home
+                        </NavLink>
+
+                        < NavLink
+                            to="/all-listing"
+                            className={({ isActive }) => (isActive ? 'text-violet-600 font-semibold' : undefined)}
+                        >
+                            All RoomMate Post
+                        </NavLink >
+
+                        <NavLink
+                            to="/add-listing-to-find-roommate"
+                            className={({ isActive }) => (isActive ? 'text-violet-600 font-semibold' : undefined)}
+                        >
+                            Add to Find Roommate
+                        </NavLink>
+                        <NavLink
+                            to="/browse-listing"
+                            className={({ isActive }) => (isActive ? 'text-violet-600 font-semibold' : undefined)}
+                        >
+                            Browse Listing
+                        </NavLink>
+                        <NavLink
+                            to="/my-listings"
+                            className={({ isActive }) => (isActive ? 'text-violet-600 font-semibold' : undefined)}
+                        >
+                            My Listings
+                        </NavLink>
+                    </>
+            }
         </>
     );
 
@@ -178,10 +207,10 @@ const Navbar = () => {
 
                                 {/* Profile Button */}
                                 <Link
-                                    to="/my-profile"
+                                    to="/dashboard"
                                     className="btn btn-sm btn-info mt-2 w-full flex items-center gap-2 justify-center"
                                 >
-                                    My Profile
+                                    Dashboard
                                 </Link>
 
                                 <button

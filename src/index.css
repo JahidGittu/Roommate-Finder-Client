@@ -6,11 +6,15 @@
   default: true; /* set as default */
   prefersdark: false; /* set as default dark mode (prefers-color-scheme:dark) */
   color-scheme: light; /* color of browser-provided UI */
-
+/* 
   --color-base-100: oklch(98% 0.02 240);
   --color-base-200: oklch(95% 0.03 240);
   --color-base-300: oklch(92% 0.04 240);
-  --color-base-content: oklch(20% 0.05 240);
+  --color-base-content: oklch(20% 0.05 240); */
+  --color-base-100: #d1d5db; /* light bg (gray-300) */
+  --color-base-200: #cbd5e1; /* light bg hover (gray-400) */
+  --color-base-300: #94a3b8; /* secondary bg (gray-500) */
+  --color-base-content: #1f2937; /* text (gray-800) */
   --color-primary: oklch(55% 0.3 240);
   --color-primary-content: oklch(98% 0.01 240);
   --color-secondary: oklch(70% 0.25 200);

@@ -40,6 +40,7 @@ const Login = () => {
                         popup: 'custom-modal-bg'
                     }
                 });
+                setLoading(false)
                 navigate(location.state || "/");
             })
             .catch(error => {
@@ -59,6 +60,7 @@ const Login = () => {
             .then(res => {
                 const user = res.user;
                 setUser(user);
+                setLoading(false)
                 MySwal.fire({
                     title: <strong>Login Successful!</strong>,
                     html: <i>Welcome back, {user.email}</i>,
@@ -67,6 +69,7 @@ const Login = () => {
                         popup: 'custom-modal-bg'
                     }
                 });
+
                 navigate(location.state?.from?.pathname || "/");
             })
             .catch(error => {

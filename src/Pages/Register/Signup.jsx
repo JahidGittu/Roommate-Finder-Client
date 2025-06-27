@@ -102,6 +102,7 @@ const Signup = () => {
                         popup: 'custom-modal-bg'
                     }
                 });
+                setLoading(false)
                 navigate(location.state?.from?.pathname || "/");
             })
             .catch(error => {

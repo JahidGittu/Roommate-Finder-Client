@@ -17,6 +17,9 @@ import AboutUs from "../WebsiteInfo/AboutUs";
 import ContactUs from "../WebsiteInfo/ContactUs";
 import Jobs from "../WebsiteInfo/Jobs";
 import PressKit from "../WebsiteInfo/PressKit";
+import Dashboard from "../Pages/Dashboard/Dashboard";
+import Default from "../Pages/Dashboard/Default";
+import AllListing from "../Pages/AllListing/AllListing";
 
 const router = createBrowserRouter([
     {
@@ -30,6 +33,10 @@ const router = createBrowserRouter([
             {
                 path: "/add-listing-to-find-roommate",
                 element: <PrivateRoutes><FindRoommate /></PrivateRoutes>
+            },
+            {
+                path: "/all-listing",
+                element: <AllListing/>
             },
             {
                 path: "/details/:id",
@@ -47,12 +54,42 @@ const router = createBrowserRouter([
                 path: "/my-listing/update/:id",
                 element: <PrivateRoutes><UpdatePost /></PrivateRoutes>
             },
-            {
-                path: "/my-profile",
-                element: <PrivateRoutes><Profile /></PrivateRoutes>
-            }
         ],
         errorElement: <ErrorPage></ErrorPage>
+    },
+    {
+        path: '/dashboard',
+        element: <PrivateRoutes><Dashboard /></PrivateRoutes>,
+        children: [
+            {
+                index: true,
+                element: <Default />
+            },
+            {
+                path: "/dashboard/my-listings",
+                element: <MyListings />
+            },
+            {
+                path: "/dashboard/browse-listing",
+                element: <BrowseListing />
+            },
+            {
+                path: "/dashboard/add-listing-to-find-roommate",
+                element: <FindRoommate />
+            },
+            {
+                path: "/dashboard/my-listing/update/:id",
+                element: <UpdatePost />
+            },
+            {
+                path: "/dashboard/details/:id",
+                element: <ListingDetails />
+            },
+            {
+                path: "/dashboard/my-profile",
+                element: <Profile />
+            }
+        ]
     },
     {
         path: "/auth",
