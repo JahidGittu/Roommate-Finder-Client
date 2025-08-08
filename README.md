@@ -8,8 +8,8 @@
 
 🌐 **Live Site:** [https://roommate-finder-pro.web.app/](https://roommate-finder-pro.web.app/)
 
-🔗 **Client Repository:** [Client on GitHub](https://github.com/Programming-Hero-Web-Course4/b11a10-client-side-JAHID-SUPER-GIT)  
-🔗 **Server Repository:** [Server on GitHub](https://github.com/Programming-Hero-Web-Course4/b11a10-server-side-JAHID-SUPER-GIT)
+🔗 **Client Repository:** [Client on GitHub](https://github.com/JahidGittu/Roommate-Finder-Client)  
+🔗 **Server Repository:** [Server on GitHub](https://github.com/JahidGittu/Roommate-Finder-Server)
 <hr>
 
 <h2>🎯 Project Purpose | প্রজেক্ট উদ্দেশ্য</h2>
