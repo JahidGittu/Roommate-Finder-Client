@@ -138,3 +138,30 @@ client/
 │   ├── utils/              # Helper Functions
 │   └── assets/             # Images, Lottie Animations
 </pre>
+
+<hr>
+
+🧪 How to Run Locally
+```bash
+# Clone repositories
+git clone https://github.com/JahidGittu/Roommate-Finder-Client.git
+git clone https://github.com/JahidGittu/Roommate-Finder-Server.git
+
+# Client Setup
+cd Roommate-Finder-Client
+npm install
+npm run dev
+
+# Server Setup
+cd Roommate-Finder-Server
+npm install
+nodemon index.js
+```
+<hr>
+
+👨‍💻 Developer Info | ডেভেলপার তথ্য
+=> Developed by: Jahid Hossen
+🌐 GitHub: JahidGittu
+🌍 Portfolio: jahidgittu.dev
+✉️ Email: jahid.hossen.me@gmail.com
+📍 Location: Lakshmipur, Bangladesh
