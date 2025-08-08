@@ -1,172 +1,134 @@
 
-# 🏡 Roommate Finder Pro
-
-Welcome to **Roommate Finder Pro** – a modern web application that helps individuals find compatible roommates based on preferences like location, rent, lifestyle, and more.
+🏡 Roommate Finder Pro | রুমমেট ফাইন্ডার প্রো
+A modern roommate listing platform where users can post, browse, and find compatible roommates based on rent, location, lifestyle, and preferences.
+একটি আধুনিক ওয়েব অ্যাপ যেখানে ইউজাররা রুমমেট খোঁজার জন্য পোস্ট করতে পারে, অন্যদের পোস্ট ব্রাউজ করতে পারে এবং নিজের পছন্দ অনুযায়ী রুমমেট খুঁজে পেতে পারে।
 
 🌐 **Live Site:** [https://roommate-finder-pro.web.app/](https://roommate-finder-pro.web.app/)
 
 🔗 **Client Repository:** [Client on GitHub](https://github.com/Programming-Hero-Web-Course4/b11a10-client-side-JAHID-SUPER-GIT)  
 🔗 **Server Repository:** [Server on GitHub](https://github.com/Programming-Hero-Web-Course4/b11a10-server-side-JAHID-SUPER-GIT)
 
----
+🎯 Project Purpose | প্রজেক্ট উদ্দেশ্য
+To create a smooth platform for individuals to list their roommate needs and discover suitable roommates with useful filters and secure authentication.
+একটি প্ল্যাটফর্ম তৈরি করা যেখানে মানুষ সহজেই রুমমেট খুঁজে পেতে এবং নিজেও রুমমেট সংক্রান্ত তথ্য যুক্ত করতে পারে।
 
-## ✨ Key Features
+🚀 Key Features | প্রধান ফিচারসমূহ
+🔐 Authentication System
+Email & Password Login/Register
 
-- 🔐 **Email/Password Authentication** with Google Sign-In option.
-- 📥 **Add Roommate Listings** (title, rent, location, preferences, etc.).
-- 🔍 **Browse & View Listings** from all users with detail view and like system.
-- 💼 **My Listings** to view, update, or delete your own listings.
-- ❤️ **Like Feature** on detail page with restricted logic (can't like own post).
-- 📞 **Hidden Contact Info** revealed only after liking the post.
-- 🌙 **Dark/Light Mode** toggle on Home page.
-- 📱 Fully **Responsive Design** for mobile, tablet, and desktop.
-- 🚫 404 Page and ⏳ Loading Spinner for better UX.
+Google Login (Social Auth)
 
----
+Firebase Authentication
 
-## 🛠️ Technologies Used
+Protected Routes
 
-### 📦 Frontend
-- React.js (Vite)
-- React Router DOM
-- Firebase Authentication
-- TailwindCSS + DaisyUI
-- React Helmet Async
-- Lottie React
-- React Awesome Reveal ✨
-- React Simple Typewriter
-- React Hot Toast
-- SweetAlert2
+📝 Roommate Listings
+Add new roommate posts with rent, location, and lifestyle preferences
 
-### 🌐 Backend
-- Node.js
-- Express.js
-- MongoDB with Mongoose
-- CORS, Dotenv, JWT
-- Vercel Deployment
+Browse all listings
 
----
+View post details with contact information (revealed after like)
 
-## 🚦 Pages Overview
+📥 My Listings
+Update/Delete your own listings
 
-### 🔓 Public Pages
-- `/` Home Page
-- `/login` Login Page
-- `/signup` Signup Page
-- `/browse-listings` Browse all Roommate Listings
-- `*` 404 Not Found
+Dashboard overview with total listings, bookings, users, and reviews
 
-### 🔐 Protected Routes
-- `/add-roommate` Add a Roommate Listing
-- `/listing/:id` Details Page with Like & Contact
-- `/my-listings` My Listings Page
-- `/update/:id` Update a Roommate Post
+💖 Like & Contact Reveal
+Like other users’ posts (can’t like own)
 
----
+Reveal contact info only after liking a post
 
-## 📋 Functional Requirements Implemented
+🌙 Theme & UX
+Dark/Light Mode toggle
 
-✅ **Routing:** No page breaks on reload, no auto-redirect from private route if already logged in  
-✅ **Authentication:** Login/Register with validation, error messages via Toast/SweetAlert  
-✅ **CRUD Operations:** Create, Read, Update, Delete listings  
-✅ **Like System:** Users can like others’ posts multiple times, not their own  
-✅ **Contact Info Reveal:** Contact number appears after clicking Like button  
-✅ **Dark/Light Theme:** Toggle switch available on Home  
-✅ **Extra Sections:** “How It Works” & “Why Choose Us”  
-✅ **Responsiveness:** Perfectly optimized for all screen sizes  
-✅ **Meaningful Content:** No Lorem Ipsum used  
-✅ **.env Variables:** Firebase & MongoDB configs stored in `.env`  
-✅ **UI/UX:** Unique, clean design inspired by ThemeForest
+Responsive design for all devices
 
----
+Toast/SweetAlert for notifications
 
-## 💡 Special Implementations
+Clean & user-friendly UI
 
-- **Animations** with `React Awesome Reveal`
-- **Typing Effect** using `React Simple Typewriter`
-- **Limit Query** in MongoDB to show only 6 Featured Roommates
-- **Conditional Navbar** showing profile image & logout if logged in
-- **Toast + SweetAlert2** for success/error/confirmation dialogs
-- **Hover Tooltip** to show user display name on navbar avatar
+🖼️ Pages Overview | পেজসমূহের বিবরণ
+🏠 Home Page | হোম পেজ
+স্লাইডার, হিরো সেকশন, ফিচার্ড রুমমেট পোস্ট এবং লাইট/ডার্ক মোড সুইচ।
 
----
 
-## 📁 Folder Structure Highlights
+📃 All Roommate Posts | সকল রুমমেট পোস্ট
+সকল ইউজার পোস্ট দেখতে পাওয়া যায়, প্রতিটিতে বিস্তারিত দেখতে ও লাইক করার অপশন।
 
-```bash
+
+➕ Add Roommate | রুমমেট পোস্ট যুক্ত করুন
+ইউজার নতুন রুমমেট পোস্ট তৈরি করতে পারে এই ফর্ম পেজ থেকে।
+
+
+👤 My Listings | আমার পোস্টসমূহ
+ইউজার নিজের পোস্টগুলো দেখতে, আপডেট করতে বা ডিলিট করতে পারে।
+
+
+📋 Roommate Details Page | বিস্তারিত পেজ
+পোস্টের ডিটেইলস, রুমের টাইপ, রেন্ট, লোকেশন, প্রেফারেন্স, এবং লাইক অপশনসহ।
+
+
+📊 Dashboard Overview | ড্যাশবোর্ড
+Total Listings, Bookings, Users, Reviews
+
+Last 7/15/30 days overview
+
+Featured Roommates section
+
+
+🙍‍♂️ My Profile | প্রোফাইল পেজ
+ইউজার তার নাম, ইমেইল ও ছবি দেখতে ও আপডেট করতে পারে।
+
+🛠️ Used Technologies & Packages | ব্যবহৃত টুলস ও প্যাকেজসমূহ
+Frontend Tool	Description
+React.js (Vite)	Frontend Framework
+React Router DOM	Routing
+Firebase	Authentication + Hosting
+TailwindCSS + DaisyUI	Responsive Design
+React Hot Toast	Toast Notification
+SweetAlert2	Stylish Alert Popups
+React Helmet Async	SEO Meta Tag Support
+Lottie React	Animation for sections
+React Awesome Reveal	Entry animations for better UX
+React Simple Typewriter	Typing animation for headings
+
+📁 Folder Structure (Client Side)
+bash
+Copy
+Edit
 client/
 ├── src/
-│   ├── components/         # Reusable UI Components (Navbar, Footer, etc.)
-│   ├── pages/              # All route pages (Home, Login, Signup, etc.)
-│   ├── routes/             # Route configurations
-│   ├── contexts/           # AuthContext for global user state
-│   ├── hooks/              # Custom hooks like useAxiosSecure
-│   ├── utils/              # Utilities (e.g., PrivateRoute)
-│   └── assets/             # Images, animations, etc.
-server/
-├── routes/
-├── models/
-├── controllers/
-├── middleware/
-└── index.js
-```
+│   ├── components/         # Navbar, Footer, Sliders
+│   ├── pages/              # All Route Pages
+│   ├── routes/             # Public & Private Routes
+│   ├── contexts/           # AuthContext
+│   ├── hooks/              # Custom Hooks
+│   ├── utils/              # Helper Functions
+│   └── assets/             # Images, Lottie Animations
+⚙️ How to Run Locally | লোকালভাবে রান করার নিয়ম
+bash
+Copy
+Edit
+# Clone the repository
+git clone https://github.com/your-username/roommate-finder-client.git
 
----
+# Navigate into the project folder
+cd roommate-finder-client
 
-## 🔒 Environment Variables
-
-Create a `.env` file in both `client/` and `server/`:
-
-### For Client:
-```
-VITE_API_URL=https://your-server.vercel.app
-VITE_FIREBASE_API_KEY=your_firebase_key
-VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
-...
-```
-
-### For Server:
-```
-PORT=5000
-MONGODB_URI=your_mongodb_uri
-JWT_SECRET=your_jwt_secret
-```
-
----
-
-## 🚀 Deployment
-
-- **Client Side**: Deployed on **Firebase Hosting**
-- **Server Side**: Deployed on **Vercel**
-
----
-
-## 🧪 How to Run Locally
-
-```bash
-# Clone repos
-git clone <client-repo-url>
-git clone <server-repo-url>
-
-# Client Setup
-cd client
+# Install dependencies
 npm install
+
+# Start the development server
 npm run dev
-
-# Server Setup
-cd server
-npm install
-nodemon index.js
-```
-
----
-
-## 🙋 Author
-
-Made with ❤️ by [Jahid](https://github.com/JAHID-SUPER-GIT) for **Assignment-10 (Category: Orange)** under Programming Hero Web Development Course.
-
----
-
+👨‍💻 Developer Info | ডেভেলপার তথ্য
+Jahid Hossen
+💻 MERN Stack Developer
+📍 Lakshmipur, Bangladesh
+🎓 Diploma in Computer Engineering
+🚀 Trained at Programming Hero
+🌐 Portfolio Website
+🔗 GitHub | LinkedIn
 ## 📜 License
 
 This project is for educational purposes only. No commercial license.
