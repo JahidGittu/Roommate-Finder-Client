@@ -159,9 +159,9 @@ nodemon index.js
 ```
 <hr>
 
-👨‍💻 Developer Info | ডেভেলপার তথ্য
-=> Developed by: Jahid Hossen
-🌐 GitHub: JahidGittu
-🌍 Portfolio: jahidgittu.dev
-✉️ Email: jahid.hossen.me@gmail.com
+👨‍💻 Developer Info | ডেভেলপার তথ্য </br>
+ => Developed by: Jahid Hossen </br>
+🌐 GitHub: [JahidGittu](https://github.com/JahidGittu) </br>
+🌍 Portfolio: <a href="http://jahid-portfolio.surge.sh/" target="_blank">jahidgittu.dev</a> </br>
+✉️ Email: jahid.hossen.me@gmail.com </br>
 📍 Location: Lakshmipur, Bangladesh
